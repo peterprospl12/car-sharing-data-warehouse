@@ -4,12 +4,14 @@ import random
 from faker import Faker
 from datetime import timedelta, date, datetime
 from faker_vehicle import VehicleProvider
+import utills.utills as utills
+import pandas as pd
 
 fake = Faker('pl_PL')
 fake.add_provider(VehicleProvider)
 user_gens = 100
 car_gens = 100
-pricelist_gens = 10
+pricelists_gens = 10
 
 
 def create_users_file(gen_num):
@@ -31,7 +33,7 @@ def create_users_file(gen_num):
                     fake.first_name(),
                     fake.last_name(),
                     fake.pesel(date_of_birth=datetime.combine(birth_date, datetime.min.time())),
-                    fake.random_int(min=100000, max=999999),  # Losowe ID prawa jazdy
+                    fake.random_int(min=100000, max=999999),
                     fake.country(),
                     fake.email(),
                     fake.password(),
@@ -45,9 +47,11 @@ def create_cars_file(gen_num):
     # car_id, brand, engine_power, manual or not, license_plate_number, model
     with open('../cars.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
+        writerCity = csv.writer(open('../cities.csv', mode='w', newline=''))
         writer.writerow(
             ["Car_ID", "Brand", "Engine_power", "Manual", "License_plate_number", "Model"]
         )
+        writerCity.writerow(["Car_Id", "City"])
         for i in range(gen_num):
             make_model = fake.vehicle_make_model()
             make, model = make_model.split(' ', 1)  # Split into make and model
@@ -60,6 +64,9 @@ def create_cars_file(gen_num):
                     fake.license_plate(),
                     model
                 ]
+            )
+            writerCity.writerow(
+                [i + 1, random.choice(list(utills.cities_coordinates.keys()))]
             )
             print(f"Car {i + 1} created.")
 
@@ -75,7 +82,7 @@ def create_pricelists_file(gen_num):
             writer.writerow(
                 [
                     i + 1,
-                    round(random.uniform(4.0, 10.0), 2),  # Random float between 1.0 and 10.0
+                    round(random.uniform(4.0, 10.0), 2),
                     round(random.uniform(1.0, 2.0), 2),
                     round(random.uniform(3.0, 5.0), 2)
                 ]
@@ -89,15 +96,20 @@ def create_cars_states_file(car_gens, pricelist_gens):
         writer.writerow(
             ["Car_state_ID", "Is_broken", "Is_used", "Location", "Active", "Car_ID", "Pricelist_ID"]
         )
+        cities = pd.read_csv('../cities.csv')
         for i in range(car_gens):
+            sampled_row = cities.sample()
+            car_id = sampled_row.iloc[0]['Car_Id']
+            city = sampled_row.iloc[0]['City']
+            city, coordinates = utills.generate_random_city_coordinates(city=city)
             writer.writerow(
                 [
                     i + 1,
                     fake.boolean(chance_of_getting_true=5),
                     fake.boolean(chance_of_getting_true=50),
-                    f"{fake.latitude()}, {fake.longitude()}",
+                    coordinates,
                     fake.boolean(chance_of_getting_true=90),
-                    fake.random_int(min=1, max=car_gens),
+                    car_id,
                     fake.random_int(min=1, max=pricelist_gens)
                 ]
             )
@@ -126,7 +138,6 @@ def create_rentals_file(gen_num, user_gens, car_state_gens):
                     random.randint(0, 24),
                     f"{fake.latitude()}, {fake.longitude()}",
                     f"{fake.latitude()}, {fake.longitude()}",
-
                 ]
             )
             print(f"Rental {i + 1} created.")
@@ -135,8 +146,8 @@ def create_rentals_file(gen_num, user_gens, car_state_gens):
 def main():
     create_users_file(user_gens)
     create_cars_file(car_gens)
-    create_pricelists_file(pricelist_gens)
-    create_cars_states_file(car_gens, pricelist_gens)
+    create_pricelists_file(pricelists_gens)
+    create_cars_states_file(car_gens, pricelists_gens)
     create_rentals_file(1000, user_gens, car_gens)
 
 
