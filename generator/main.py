@@ -13,7 +13,7 @@ pricelist_gens = 10
 
 
 def create_users_file(gen_num):
-    with open('users.csv', mode='w', newline='') as file:
+    with open('../users.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(
             ["User_ID", "First_name", "Last_name", "PESEL", "Driving_license_ID", "Nationality", "E-mail", "Password",
@@ -43,7 +43,7 @@ def create_users_file(gen_num):
 
 def create_cars_file(gen_num):
     # car_id, brand, engine_power, manual or not, license_plate_number, model
-    with open('cars.csv', mode='w', newline='') as file:
+    with open('../cars.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(
             ["Car_ID", "Brand", "Engine_power", "Manual", "License_plate_number", "Model"]
@@ -66,7 +66,7 @@ def create_cars_file(gen_num):
 
 def create_pricelists_file(gen_num):
     # pricelist_id, starting_price, layover_price, price_per_km
-    with open('pricelists.csv', mode='w', newline='') as file:
+    with open('../pricelists.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(
             ["Pricelist_ID", "Starting_price", "Layover_price", "Price_per_km"]
@@ -84,7 +84,7 @@ def create_pricelists_file(gen_num):
 
 
 def create_cars_states_file(car_gens, pricelist_gens):
-    with open('cars_states.csv', mode='w', newline='') as file:
+    with open('../cars_states.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(
             ["Car_state_ID", "Is_broken", "Is_used", "Location", "Active", "Car_ID", "Pricelist_ID"]
@@ -106,7 +106,7 @@ def create_cars_states_file(car_gens, pricelist_gens):
 
 def create_rentals_file(gen_num, user_gens, car_state_gens):
     # rental_id, rental_date_start, driven_km, total_cost, rental_date_end, layover_time, start_location, end_location
-    with open('rentals.csv', mode='w', newline='') as file:
+    with open('../rentals.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(
             ["Rental_ID", "Rental_date_start", "Driven_km", "Total_cost", "Rental_date_end", "Layover_time",
