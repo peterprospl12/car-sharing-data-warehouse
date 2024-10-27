@@ -154,7 +154,7 @@ def create_rentals_file(gen_num, user_gens, car_state_gens):
                 [
                     i + 1,
                     start_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    fake.random_int(min=1, max=500),
+                    (utills.calc_distance(coordinates_start, coordinates_end) + fake.random_int(min=1, max=30)),
                     round(random.uniform(10.0, 100.0), 2),
                     end_date.strftime("%Y-%m-%d %H:%M:%S"),
                     random.randint(0, 24),
