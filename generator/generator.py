@@ -9,8 +9,9 @@ import pandas as pd
 
 fake = Faker('pl_PL')
 fake.add_provider(VehicleProvider)
-user_gens = 100
+user_gens = 1000
 car_gens = 100
+car_state_gens = 1000
 pricelists_gens = 10
 
 
@@ -90,25 +91,35 @@ def create_pricelists_file(gen_num):
             print(f"Pricelist {i + 1} created.")
 
 
-def create_cars_states_file(car_gens, pricelist_gens):
+def create_cars_states_file(gen_num, pricelist_gens):
     with open('../cars_states.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(
             ["Car_state_ID", "Is_broken", "Is_used", "Location", "Active", "Car_ID", "Pricelist_ID"]
         )
         cities = pd.read_csv('../cities.csv')
-        for i in range(car_gens):
+        active_cars = {}
+        for i in range(gen_num):
             sampled_row = cities.sample()
             car_id = sampled_row.iloc[0]['Car_Id']
             city = sampled_row.iloc[0]['City']
             city, coordinates = utills.generate_random_city_coordinates(city=city)
+
+            is_broken = fake.boolean(chance_of_getting_true=5)
+            is_used = False if is_broken else fake.boolean(chance_of_getting_true=50)
+            is_active = fake.boolean(chance_of_getting_true=50)
+            if is_active and active_cars.get(car_id) is None:
+                active_cars[car_id] = True
+            else:
+                is_active = False
+
             writer.writerow(
                 [
                     i + 1,
-                    fake.boolean(chance_of_getting_true=5),
-                    fake.boolean(chance_of_getting_true=50),
+                    is_broken,
+                    is_used,
                     coordinates,
-                    fake.boolean(chance_of_getting_true=90),
+                    is_active,
                     car_id,
                     fake.random_int(min=1, max=pricelist_gens)
                 ]
@@ -147,7 +158,7 @@ def main():
     create_users_file(user_gens)
     create_cars_file(car_gens)
     create_pricelists_file(pricelists_gens)
-    create_cars_states_file(car_gens, pricelists_gens)
+    create_cars_states_file(car_state_gens, pricelists_gens)
     create_rentals_file(1000, user_gens, car_gens)
 
 
