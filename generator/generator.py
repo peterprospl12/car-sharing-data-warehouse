@@ -103,7 +103,7 @@ def create_cars_states_file(gen_num, pricelist_gens):
             sampled_row = cities.sample()
             car_id = sampled_row.iloc[0]['Car_Id']
             city = sampled_row.iloc[0]['City']
-            city, coordinates = utills.generate_random_city_coordinates(city=city)
+            _, coordinates = utills.generate_random_city_coordinates(city=city)
 
             is_broken = fake.boolean(chance_of_getting_true=5)
             is_used = False if is_broken else fake.boolean(chance_of_getting_true=50)
@@ -133,9 +133,20 @@ def create_rentals_file(gen_num, user_gens, car_state_gens):
         writer = csv.writer(file)
         writer.writerow(
             ["Rental_ID", "Rental_date_start", "Driven_km", "Total_cost", "Rental_date_end", "Layover_time",
-             "Start_location", "End_location"]
+             "Start_location", "End_location", "Car_state_ID", "User_ID"]
         )
+        cities = pd.read_csv('../cities.csv')
+        states = pd.read_csv('../cars_states.csv')
         for i in range(gen_num):
+            states_sampled_row = states.sample()
+            car_id_from_state = states_sampled_row.iloc[0]['Car_ID']
+            car_state_id = states_sampled_row.iloc[0]['Car_state_ID']
+
+            city_row = cities[cities['Car_Id'] == car_id_from_state]
+            city = city_row.iloc[0]['City']
+
+            _, coordinates_start = utills.generate_random_city_coordinates(city=city)
+            _, coordinates_end = utills.generate_random_city_coordinates(city=city)
             start_date = fake.date_time_between(start_date='-1y', end_date='now')
             end_date = start_date + timedelta(hours=random.randint(1, 5), minutes=random.randint(0, 59),
                                               seconds=random.randint(0, 59))
@@ -147,8 +158,10 @@ def create_rentals_file(gen_num, user_gens, car_state_gens):
                     round(random.uniform(10.0, 100.0), 2),
                     end_date.strftime("%Y-%m-%d %H:%M:%S"),
                     random.randint(0, 24),
-                    f"{fake.latitude()}, {fake.longitude()}",
-                    f"{fake.latitude()}, {fake.longitude()}",
+                    coordinates_start,
+                    coordinates_end,
+                    car_state_id,
+                    fake.random_int(min=1, max=user_gens)
                 ]
             )
             print(f"Rental {i + 1} created.")
