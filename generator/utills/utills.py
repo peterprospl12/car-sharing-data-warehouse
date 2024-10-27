@@ -29,8 +29,6 @@ def calc_distance(coord1, coord2):
     lat1, lon1 = map(float, coord1.split())
     lat2, lon2 = map(float, coord2.split())
 
-    # Convert coordinates to radians
     lat1, lat2, lon1, lon2 = map(radians, [lat1, lat2, lon1, lon2])
 
-    # Calculate the distance using the Haversine formula
     return acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon2 - lon1)) * 6371
