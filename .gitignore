@@ -1,7 +1,8 @@
-/.idea
+.idea/
 /cars_states.csv
 /cars.csv
 /pricelists.csv
 /users.csv
 /rentals.csv
 /cities.csv
+__pycache__/
