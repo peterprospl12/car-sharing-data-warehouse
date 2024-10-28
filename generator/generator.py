@@ -11,26 +11,29 @@ import pandas as pd
 
 fake = Faker('pl_PL')
 fake.add_provider(VehicleProvider)
-user_gens = 20
-car_gens = 10
-car_state_gens = 50
-PRICE_INCREASES = 5
-rental_gens = 100
+
+N_USERS = 20  # Number of users
+N_CARS = 10  # Number of cars
+N_CAR_STATES = 50  # Number of car states per car (amount of car states >= N_CARS * N_PRICE_INCREASE)
+N_PRICE_INCREASES = 5  # Numer of pricelist changes
+N_RENTALS = 10  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
+
+# Possible car models with possible engine powers and luxury levels
 
 car_brands_and_models = [
-    ["Renault", "Clio", [90, 100, 120]],
-    ["Renault", "Master", [100, 120, 140]],
-    ["Renault", "Arkana", [140, 160, 180]],
-    ["Renault", "Zoe", [90, 100, 120]],
-    ["Dacia", "Sandero", [90, 100, 120]],
-    ["Dacia", "Spring", [90, 100, 120]],
-    ["Renault", "Megane", [130, 190, 240]],
-    ["Dacia", "Dokker", [90, 100, 120]],
-    ["Renault", "Express", [12, 150, 180]],
+    ["Renault", "Clio", [90, 100, 120], 0],
+    ["Renault", "Master", [100, 120, 140], 1],
+    ["Renault", "Arkana", [140, 160, 180], 1],
+    ["Renault", "Zoe", [90, 100, 120], 2],
+    ["Dacia", "Sandero", [90, 100, 120], 0],
+    ["Dacia", "Spring", [90, 100, 120], 1],
+    ["Renault", "Megane", [130, 190, 240], 2],
+    ["Dacia", "Dokker", [90, 100, 120], 1],
+    ["Renault", "Express", [12, 150, 180], 2],
 ]
 
 
-def create_users_file(gen_num):
+def create_users_file():
     # User_ID, First_name, Last_name, PESEL, Driving_license_ID, Nationality, E-mail, Password, License_receiving_date
 
     with open('../users.csv', mode='w', newline='') as file:
@@ -41,8 +44,12 @@ def create_users_file(gen_num):
              "License_receiving_date"]
         )
 
-        for i in range(gen_num):
+        for i in range(N_USERS):
+            # Birthdate is between 18 and 65 years ago
+
             birth_date = fake.date_of_birth(minimum_age=18, maximum_age=65)
+
+            # License receiving date is between 18 and 65 years after birthdate
 
             min_license_date = birth_date + timedelta(days=18 * 365)
             today = date.today()
@@ -56,7 +63,7 @@ def create_users_file(gen_num):
                     fake.first_name(),
                     fake.last_name(),
                     fake.pesel(date_of_birth=datetime.combine(birth_date, datetime.min.time())),
-                    fake.random_int(min=100000, max=999999),
+                    fake.random_int(min=100000, max=999999),  # Driving license ID
                     fake.country(),
                     fake.email(),
                     fake.password(),
@@ -64,40 +71,11 @@ def create_users_file(gen_num):
                 ]
             )
 
-            # print(f"User {i + 1} created.")
 
-
-def create_cars_file(gen_num):
-    # car_id, brand, engine_power, manual or not, license_plate_number, model
-
-    with open('../cars.csv', mode='w', newline='') as file:
-        writer = csv.writer(file)
-
-        writer.writerow(
-            ["Car_ID", "Brand", "Model", "Engine_power", "Manual", "License_plate_number"]
-        )
-
-        for i in range(gen_num):
-            brand_and_model = random.choice(car_brands_and_models)
-
-            writer.writerow(
-                [
-                    i + 1,
-                    brand_and_model[0],
-                    brand_and_model[1],
-                    random.choice(brand_and_model[2]),
-                    fake.boolean(chance_of_getting_true=50),
-                    fake.license_plate(),
-                ]
-            )
-
-            # print(f"Car {i + 1} created.")
-
-
-# Cenik [i] - mało luksusowe, [i + 1] - średnio luksusowe, [i + 2] - luksusowe
+# Pricelist [i] - non-luxury, [i + 1] - semi-luxury, [i + 2] - luxury
 # Zakładamy PRICE_INCREASE podwyżek cen
 # [Pricelist_ID, Starting_price, Layover_price, Price_per_km]
-pricelists = [[i + 1, 4 + 0.5 * i, 0.1 + i * 0.02, 1.7 + i * 0.2] for i in range(PRICE_INCREASES)]
+pricelists = [[i + 1, 4 + 0.5 * i, 0.1 + i * 0.02, 1.7 + i * 0.2] for i in range(N_PRICE_INCREASES + 2)]
 
 
 def create_pricelists_file():
@@ -108,118 +86,139 @@ def create_pricelists_file():
         writer.writerow(["Pricelist_ID", "Starting_price", "Layover_price", "Price_per_km"])
         writer.writerows(pricelists)
 
-        # print(f"{PRICE_INCREASES} pricelists created.")
 
+def create_cars_car_states_and_rentaks():
+    # CARS : Car_ID, brand, model, engine_power, manual, license_plate_number
+    # CAR_STATES : Car_state_ID, Is_broken, Is_used, Location, Active, Car_ID, Pricelist_ID
+    # RENTALS : Rental_ID, rental_date_start, driven_km, total_cost, rental_date_end, layover_time, start_location, end_location, User_ID, Car_state_ID
 
-def create_cars_states_file(gen_num):
-    # Car_state_ID, Is_broken, Is_used, Location, Active, Car_ID, Pricelist_ID
+    id_rental = 1
+    id_state = 1
 
-    # Read only the 'Car_ID' column from 'cars.csv'
-    car_ids = pd.read_csv('../cars.csv', usecols=['Car_ID'])['Car_ID'].tolist()
+    users = pd.read_csv('../users.csv', usecols=['User_ID', 'License_receiving_date'])
+    users['License_receiving_date'] = pd.to_datetime(users['License_receiving_date'])
 
-    # Read only the 'Pricelist_ID' column from 'pricelists.csv'
-    pricelist_ids = pd.read_csv('../pricelists.csv', usecols=['Pricelist_ID'])['Pricelist_ID'].tolist()
-
-    with open('../cars_states.csv', mode='w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(
-            ["Car_state_ID", "Is_broken", "Is_used", "Location", "Active", "Car_ID", "Pricelist_ID"]
-        )
-        active_cars = {}
-        for i in range(gen_num):
-            car_id = random.choice(car_ids)
-            _, coordinates = utills.generate_random_city_coordinates()
-
-            is_broken = fake.boolean(chance_of_getting_true=2)
-            is_used = False if is_broken else fake.boolean(chance_of_getting_true=30)
-            is_active = fake.boolean(chance_of_getting_true=int(np.floor(100 / PRICE_INCREASES)))
-
-            if is_active and active_cars.get(car_id) is None:
-                active_cars[car_id] = True
-            else:
-                is_active = False
-
-            writer.writerow(
-                [
-                    i + 1,
-                    is_broken,
-                    is_used,
-                    coordinates,
-                    is_active,
-                    car_id,
-                    random.choice(pricelist_ids)
-                ]
-            )
-            # print(f"Car state {i + 1} created.")
-
-
-def create_rentals_file(gen_num):
-    # Rental_ID, rental_date_start, driven_km, total_cost, rental_date_end, layover_time, start_location, end_location, User_ID, Car_state_ID
-    with open('../rentals.csv', mode='w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(
-            ["Rental_ID", "Rental_date_start", "Driven_km", "Total_cost", "Rental_date_end", "Layover_time",
-             "Start_location", "End_location", "Car_state_ID", "User_ID"]
+    with open('../cars.csv', mode='w', newline='') as cars_file:
+        cars_writer = csv.writer(cars_file)
+        cars_writer.writerow(
+            ["Car_ID", "Brand", "Model", "Engine_power", "Manual", "License_plate_number"]
         )
 
-        car_states = pd.read_csv('../cars_states.csv')
-        users = pd.read_csv('../users.csv', usecols=['User_ID', 'License_receiving_date'])
-        users['License_receiving_date'] = pd.to_datetime(users['License_receiving_date'])
-        cities = list(cities_coordinates.keys())
-        pricelists = pd.read_csv('../pricelists.csv')
-
-        i = 0
-        while i < gen_num:
-            car_state = car_states.sample(n=1).iloc[0]
-            car_state_id = car_state['Car_state_ID']
-            pricelist_id = car_state['Pricelist_ID']
-            pricelist = pricelists[pricelists['Pricelist_ID'] == pricelist_id].iloc[0]
-
-            city = random.choice(cities)
-            _, coordinates_start = utills.generate_random_city_coordinates(city=city)
-            _, coordinates_end = utills.generate_random_city_coordinates(city=city)
-            start_date = fake.date_time_between(start_date='-5y', end_date='now')
-            end_date = start_date + timedelta(hours=random.randint(0, 5), minutes=random.randint(0, 59),
-                                              seconds=random.randint(0, 59))
-
-            # Randomly select a user and check if they had a valid driving license at the time of rental
-            user = users.sample(n=1).iloc[0]
-            if user['License_receiving_date'] > start_date:
-                continue  # Skip if the user did not have a valid license
-
-            user_id = user['User_ID']
-            driven_km = utills.calc_distance(coordinates_start, coordinates_end) + fake.random_int(min=1, max=30)
-            layover_time = random.randint(0, 24)
-
-            # Calculate total cost
-            total_cost = (pricelist['Starting_price'] +
-                          pricelist['Layover_price'] * layover_time +
-                          pricelist['Price_per_km'] * driven_km)
-
-            writer.writerow(
-                [
-                    i + 1,
-                    start_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    driven_km,
-                    round(total_cost, 2),
-                    end_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    layover_time,
-                    coordinates_start,
-                    coordinates_end,
-                    car_state_id,
-                    user_id
-                ]
+        with open('../rentals.csv', mode='w', newline='') as rentals_file:
+            rentals_writer = csv.writer(rentals_file)
+            rentals_writer.writerow(
+                ["Rental_ID", "Rental_date_start", "Driven_km", "Total_cost", "Rental_date_end",
+                 "Layover_time",
+                 "Start_location", "End_location", "Car_state_ID", "User_ID"]
             )
-            # print(f"Rental {i + 1} created.")
-            i += 1
+
+            with open('../cars_states.csv', mode='w', newline='') as car_states_file:
+                car_states_writer = csv.writer(car_states_file)
+                car_states_writer.writerow(
+                    ["Car_state_ID", "Is_broken", "Is_used", "Location", "Active", "Car_ID", "Pricelist_ID"]
+                )
+
+                # Generate N_CARS cars
+
+                for i in range(N_CARS):
+                    brand_and_model = random.choice(car_brands_and_models)
+                    cars_writer.writerow(
+                        [
+                            i + 1,
+                            brand_and_model[0],  # Brand
+                            brand_and_model[1],  # Model
+                            random.choice(brand_and_model[2]),  # Engine power
+                            fake.boolean(chance_of_getting_true=50),  # Manula
+                            fake.license_plate(),  # Random license plate
+                        ]
+                    )
+
+                    # For each car generate N_CAR_STATES car states
+
+                    pricelist_ids = range(brand_and_model[3], brand_and_model[3] + N_PRICE_INCREASES)
+                    CAR_STATES_PER_PRICELIST = N_CAR_STATES // N_PRICE_INCREASES
+
+                    for pricelist_id in pricelist_ids:
+                        for j in range(CAR_STATES_PER_PRICELIST):
+
+                            # Generate car state ID, and flag attributes
+
+                            car_state_id = id_state
+                            id_state += 1
+
+                            is_broken = fake.boolean(chance_of_getting_true=2)
+                            is_used = False if is_broken else fake.boolean(chance_of_getting_true=30)
+                            is_active = fake.boolean(chance_of_getting_true=int(np.floor(100 / N_PRICE_INCREASES)))
+
+                            car_states_writer.writerow(
+                                [
+                                    car_state_id,  # Car_State_ID
+                                    is_broken,  # is_broken flag
+                                    is_used,  # is_used flag
+                                    utills.generate_random_city_coordinates()[1],  # Location
+                                    is_active,  # is_used flag
+                                    i + 1,  # Car_ID
+                                    pricelist_id + 1  # Pricelist_ID
+                                ]
+                            )
+
+                            # For each car state generate N_RENTALS rentals
+
+                            for k in range(N_RENTALS):
+
+                                # Generate rental ID
+
+                                rental_id = id_rental
+                                id_rental += 1
+
+                                # Generate rental city and start and end locations
+
+                                city = random.choice(list(cities_coordinates.keys()))
+                                _, coordinates_start = utills.generate_random_city_coordinates(city=city)
+                                _, coordinates_end = utills.generate_random_city_coordinates(city=city)
+
+                                # Generate rental start and end dates
+
+                                start_date = fake.date_time_between(start_date='-5y', end_date='now')
+                                end_date = start_date + timedelta(hours=random.randint(0, 5),
+                                                                  minutes=random.randint(0, 59),
+                                                                  seconds=random.randint(0, 59))
+
+                                # Randomly select a user and check if they had a valid driving license at the time of rental
+                                user = users.sample(n=1).iloc[0]
+                                if user['License_receiving_date'] > start_date:
+                                    continue
+
+                                user_id = user['User_ID']
+                                driven_km = utills.calc_distance(coordinates_start, coordinates_end) + fake.random_int(
+                                    min=1, max=30)
+                                layover_time = random.randint(0, 24)
+
+                                # Calculate total cost
+                                total_cost = (pricelists[pricelist_id][1] +
+                                              pricelists[pricelist_id][2] * layover_time +
+                                              pricelists[pricelist_id][3] * driven_km)
+
+                                rentals_writer.writerow(
+                                    [
+                                        rental_id,  # Rental_ID
+                                        start_date.strftime("%Y-%m-%d %H:%M:%S"),  # Rental_date_start
+                                        end_date.strftime("%Y-%m-%d %H:%M:%S"),  # Rental_date_end
+                                        coordinates_start,  # Start_location
+                                        coordinates_end,  # End_location
+                                        driven_km,  # Driven_km
+                                        layover_time,  # Layover_time
+                                        round(total_cost, 2),  # Total_cost
+                                        user_id,  # User_ID
+                                        car_state_id  # Car_state_ID
+                                    ]
+                                )
 
 
 def main():
-    create_users_file(user_gens)
-    create_cars_file(car_gens)
+    create_users_file()
     create_pricelists_file()
-    create_cars_states_file(car_state_gens)
-    create_rentals_file(rental_gens)
+    create_cars_car_states_and_rentaks()
 
 
 if __name__ == "__main__":
