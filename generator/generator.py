@@ -20,7 +20,7 @@ N_PRICE_INCREASES = 1  # Number of pricelist changes
 N_RENTALS = 10  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
 
 start_date = datetime(2024, 1, 1)
-end_date = datetime(2024, 12, 31)
+end_date = datetime(2025, 12, 31)
 
 # Possible car models with possible engine powers and luxury levels
 car_brands_and_models = [
@@ -303,7 +303,7 @@ def create_rentals(start_date, end_date):
 
 
 def main():
-    date_pattern = re.compile(r'\d{8}\d{6}')
+    date_pattern = re.compile(r'_\d{8}\d{6}')
 
 # Iterate over files in the current directory
     for filename in os.listdir('../'):
@@ -311,8 +311,8 @@ def main():
         if date_pattern.search(filename):
             # Remove the date from the filename
             new_filename = date_pattern.sub('', filename)
-            # Rename the file
-            os.rename(filename, new_filename)
+        # Rename the file
+            os.rename(f'../{filename}', f'../{new_filename}')
             print(f'Renamed: {filename} -> {new_filename}')
     create_users_file(start_date, end_date)
     create_pricelists_file()
