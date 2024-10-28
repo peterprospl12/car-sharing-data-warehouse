@@ -1,6 +1,5 @@
 import csv
 import random
-
 from faker import Faker
 from datetime import timedelta, date, datetime
 from faker_vehicle import VehicleProvider
@@ -11,17 +10,16 @@ import pandas as pd
 fake = Faker('pl_PL')
 fake.add_provider(VehicleProvider)
 
-N_USERS = 5  # Number of users
-N_CARS = 3  # Number of cars
-N_CAR_STATES = 3  # Number of car states per car (amount of car states >= N_CARS * N_PRICE_INCREASE)
-N_PRICE_INCREASES = 1  # Numer of pricelist changes
+N_USERS = 2  # Number of users
+N_CARS = 2  # Number of cars
+N_CAR_STATES = 2  # Number of car states per car (amount of car states >= N_CARS * N_PRICE_INCREASE)
+N_PRICE_INCREASES = 1  # Number of pricelist changes
 N_RENTALS = 10  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
 
-start_date = datetime(2020, 1, 1)
-end_date = datetime(2023, 12, 31)
+start_date = datetime(2024, 1, 1)
+end_date = datetime(2024, 12, 31)
 
 # Possible car models with possible engine powers and luxury levels
-
 car_brands_and_models = [
     ["Renault", "Clio", [90, 100, 120], 0],
     ["Renault", "Master", [100, 120, 140], 1],
@@ -33,6 +31,16 @@ car_brands_and_models = [
     ["Dacia", "Dokker", [90, 100, 120], 1],
     ["Renault", "Express", [12, 150, 180], 2],
 ]
+
+# Generate a unique identifier for the current run
+run_id = datetime.now().strftime("%Y%m%d%H%M%S")
+
+# Define file paths with the unique identifier
+users_file_path = f'../users_{run_id}.csv'
+pricelists_file_path = f'../pricelists_{run_id}.csv'
+cars_file_path = f'../cars_{run_id}.csv'
+car_states_file_path = f'../cars_states_{run_id}.csv'
+rentals_file_path = f'../rentals_{run_id}.csv'
 
 
 # Function to get the last ID from a CSV file
@@ -48,7 +56,7 @@ def get_last_id(file_path, id_column):
     return 0
 
 
-# Load the last used IDs from CSV files
+# Load the last used IDs from existing CSV files
 id_state = {
     "user_id": get_last_id('../users.csv', 'User_ID'),
     "car_id": get_last_id('../cars.csv', 'Car_ID'),
@@ -60,12 +68,12 @@ id_state = {
 
 def create_users_file(start_date, end_date):
     global id_state
-    with open('../users.csv', mode='a', newline='') as file:
+    with open(users_file_path, mode='a', newline='') as file:
         writer = csv.writer(file)
-        if id_state["user_id"] == 0:
-            writer.writerow(
-                ["User_ID", "First_name", "Last_name", "PESEL", "Driving_license_ID", "License_receiving_date", "Nationality", "E-mail", "Password"]
-            )
+        writer.writerow(
+            ["User_ID", "First_name", "Last_name", "PESEL", "Driving_license_ID", "License_receiving_date",
+             "Nationality", "E-mail", "Password"]
+        )
 
         for i in range(N_USERS):
             id_state["user_id"] += 1
@@ -73,7 +81,8 @@ def create_users_file(start_date, end_date):
             min_license_date = birth_date + timedelta(days=18 * 365)
             today = date.today()
             end_date_date = end_date.date()
-            max_license_date = min(end_date_date, today if min_license_date < today else min_license_date + timedelta(days=365))
+            max_license_date = min(end_date_date,
+                                   today if min_license_date < today else min_license_date + timedelta(days=365))
 
             if min_license_date >= max_license_date:
                 max_license_date = min_license_date + timedelta(days=1)
@@ -103,10 +112,9 @@ pricelists = [[i + 1, 4 + 0.5 * i, 0.1 + i * 0.02, 1.7 + i * 0.2] for i in range
 
 def create_pricelists_file():
     global id_state
-    with open('../pricelists.csv', mode='a', newline='') as file:
+    with open(pricelists_file_path, mode='a', newline='') as file:
         writer = csv.writer(file)
-        if id_state["pricelist_id"] == 0:
-            writer.writerow(["Pricelist_ID", "Starting_price", "Layover_price", "Price_per_km"])
+        writer.writerow(["Pricelist_ID", "Starting_price", "Layover_price", "Price_per_km"])
 
         for i in range(N_PRICE_INCREASES + 2):
             id_state["pricelist_id"] += 1
@@ -114,7 +122,7 @@ def create_pricelists_file():
 
 
 def get_pricelist_from_csv(pricelist_id):
-    with open('../pricelists.csv', mode='r') as file:
+    with open(pricelists_file_path, mode='r') as file:
         reader = csv.DictReader(file)
         for row in reader:
             if int(row['Pricelist_ID']) == pricelist_id:
@@ -140,12 +148,11 @@ def get_existing_data(file_path, id_column):
 
 def create_cars():
     global id_state
-    with open('../cars.csv', mode='a', newline='') as cars_file:
+    with open(cars_file_path, mode='a', newline='') as cars_file:
         cars_writer = csv.writer(cars_file)
-        if id_state["car_id"] == 0:
-            cars_writer.writerow(
-                ["Car_ID", "Brand", "Model", "Engine_power", "Manual", "License_plate_number"]
-            )
+        cars_writer.writerow(
+            ["Car_ID", "Brand", "Model", "Engine_power", "Manual", "License_plate_number"]
+        )
 
         for i in range(N_CARS):
             id_state["car_id"] += 1
@@ -165,16 +172,21 @@ def create_cars():
 def create_car_states():
     global id_state
 
-    # Read existing cars and pricelists from CSV files
-    existing_cars = get_existing_data('../cars.csv', 'Car_ID')
-    existing_pricelists = get_existing_data('../pricelists.csv', 'Pricelist_ID')
+    # Read existing cars from the old CSV file
+    existing_cars_old = get_existing_data('../cars.csv', 'Car_ID')
+    # Read newly created cars from the new CSV file
+    existing_cars_new = get_existing_data(cars_file_path, 'Car_ID')
+    # Combine both lists of cars
+    existing_cars = existing_cars_old + existing_cars_new
 
-    with open('../cars_states.csv', mode='a', newline='') as car_states_file:
+    # Read newly created pricelists from the new CSV file
+    existing_pricelists = get_existing_data(pricelists_file_path, 'Pricelist_ID')
+
+    with open(car_states_file_path, mode='a', newline='') as car_states_file:
         car_states_writer = csv.writer(car_states_file)
-        if id_state["car_state_id"] == 0:
-            car_states_writer.writerow(
-                ["Car_state_ID", "Is_broken", "Is_used", "Location", "Is_active", "Car_ID", "Pricelist_ID"]
-            )
+        car_states_writer.writerow(
+            ["Car_state_ID", "Is_broken", "Is_used", "Location", "Is_active", "Car_ID", "Pricelist_ID"]
+        )
 
         for car in existing_cars:
             for pricelist in existing_pricelists:
@@ -200,22 +212,28 @@ def create_rentals(start_date, end_date):
     global id_state
 
     # Read existing cars and pricelists from CSV files
-    existing_car_states = get_existing_data('../cars_states.csv', 'Car_State_ID')
+    existing_car_states = get_existing_data('../cars_states.csv', 'Car_state_ID')
 
-    users = pd.read_csv('../users.csv', usecols=['User_ID', 'License_receiving_date'])
-    users['License_receiving_date'] = pd.to_datetime(users['License_receiving_date'])
+    # Read existing users from the old CSV file
+    existing_users_old = get_existing_data('../users.csv', 'User_ID')
+    # Read newly created users from the new CSV file
+    existing_users_new = get_existing_data(users_file_path, 'User_ID')
+    # Combine both lists of users into a single dictionary
+    existing_users = {user['User_ID']: user for user in (existing_users_old + existing_users_new)}
+
+    # Convert dictionary values to a list
+    existing_users_list = list(existing_users.values())
 
     total_days = (end_date - start_date).days
     period_duration = total_days // N_PRICE_INCREASES
 
-    with open('../rentals.csv', mode='a', newline='') as rentals_file:
+    with open(rentals_file_path, mode='a', newline='') as rentals_file:
         rentals_writer = csv.writer(rentals_file)
-        if id_state["rental_id"] == 0:
-            rentals_writer.writerow(
-                ["Rental_ID", "Rental_date_start", "Rental_date_end",
-                 "Start_location", "End_location", "Driven_km", "Layover_time",
-                 "Total_cost", "Car_state_ID", "User_ID"]
-            )
+        rentals_writer.writerow(
+            ["Rental_ID", "Rental_date_start", "Rental_date_end",
+             "Start_location", "End_location", "Driven_km", "Layover_time",
+             "Total_cost", "Car_state_ID", "User_ID"]
+        )
 
         for car_state in existing_car_states:
             for idx, pricelist in enumerate(pricelists):
@@ -246,8 +264,9 @@ def create_rentals(start_date, end_date):
                     else:
                         continue
 
-                    user = users.sample(n=1).iloc[0]
-                    if user['License_receiving_date'] > rental_start_date:
+                    user = random.choice(existing_users_list)
+                    license_receiving_date = datetime.strptime(user['License_receiving_date'], "%Y-%m-%d")
+                    if license_receiving_date > rental_start_date:
                         continue
 
                     user_id = user['User_ID']
