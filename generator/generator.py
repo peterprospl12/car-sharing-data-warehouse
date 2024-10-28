@@ -1,5 +1,8 @@
 import csv
+import os
 import random
+import re
+
 from faker import Faker
 from datetime import timedelta, date, datetime
 from faker_vehicle import VehicleProvider
@@ -102,6 +105,7 @@ def create_users_file(start_date, end_date):
                     fake.password()
                 ]
             )
+            print(f"User record for user {id_state['user_id']} created.")
 
 
 # Pricelist [i] - non-luxury, [i + 1] - semi-luxury, [i + 2] - luxury
@@ -119,6 +123,7 @@ def create_pricelists_file():
         for i in range(N_PRICE_INCREASES + 2):
             id_state["pricelist_id"] += 1
             writer.writerow([id_state["pricelist_id"], 4 + 0.5 * i, 0.1 + i * 0.02, 1.7 + i * 0.2])
+            print(f"Pricelist record for pricelist {id_state['pricelist_id']} created.")
 
 
 def get_pricelist_from_csv(pricelist_id):
@@ -167,6 +172,7 @@ def create_cars():
                     fake.license_plate(),
                 ]
             )
+            print(f"Car record for car {id_state['car_id']} created.")
 
 
 def create_car_states():
@@ -206,6 +212,7 @@ def create_car_states():
                         pricelist['Pricelist_ID']
                     ]
                 )
+                print(f"Car state record for car {car['Car_ID']} created.")
 
 
 def create_rentals(start_date, end_date):
@@ -292,9 +299,21 @@ def create_rentals(start_date, end_date):
                             user_id
                         ]
                     )
+                    print(f"Rental record for car {car_state['Car_state_ID']} created.")
 
 
 def main():
+    date_pattern = re.compile(r'\d{8}\d{6}')
+
+# Iterate over files in the current directory
+    for filename in os.listdir('../'):
+        # Check if the filename matches the date pattern
+        if date_pattern.search(filename):
+            # Remove the date from the filename
+            new_filename = date_pattern.sub('', filename)
+            # Rename the file
+            os.rename(filename, new_filename)
+            print(f'Renamed: {filename} -> {new_filename}')
     create_users_file(start_date, end_date)
     create_pricelists_file()
     create_cars()
