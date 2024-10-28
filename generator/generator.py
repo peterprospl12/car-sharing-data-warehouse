@@ -219,7 +219,7 @@ def create_rentals(start_date, end_date):
     global id_state
 
     # Read existing cars and pricelists from CSV files
-    existing_car_states = get_existing_data('../cars_states.csv', 'Car_state_ID')
+    existing_car_states = get_existing_data(car_states_file_path, 'Car_state_ID')
 
     # Read existing users from the old CSV file
     existing_users_old = get_existing_data('../users.csv', 'User_ID')
