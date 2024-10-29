@@ -19,8 +19,8 @@ N_CAR_STATES = 2  # Number of car states per car (amount of car states >= N_CARS
 N_PRICE_INCREASES = 1  # Number of pricelist changes
 N_RENTALS = 10  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
 
-start_date = datetime(2026, 12, 31)
-end_date = datetime(2027, 12, 31)
+start_date = datetime(2027, 12, 31)
+end_date = datetime(2028, 12, 31)
 
 # Possible car models with possible engine powers and luxury levels
 car_brands_and_models = [
@@ -60,13 +60,17 @@ def get_last_id(file_path, id_column):
 
 
 # Load the last used IDs from existing CSV files
-id_state = {
-    "user_id": get_last_id('../users.csv', 'User_ID'),
-    "car_id": get_last_id('../cars.csv', 'Car_ID'),
-    "car_state_id": get_last_id('../cars_states.csv', 'Car_state_ID'),
-    "rental_id": get_last_id('../rentals.csv', 'Rental_ID'),
-    "pricelist_id": get_last_id('../pricelists.csv', 'Pricelist_ID')
-}
+id_state = {}
+
+def id_state_update():
+    global id_state
+    id_state = {
+        "user_id": get_last_id('../users.csv', 'User_ID'),
+        "car_id": get_last_id('../cars.csv', 'Car_ID'),
+        "car_state_id": get_last_id('../cars_states.csv', 'Car_state_ID'),
+        "rental_id": get_last_id('../rentals.csv', 'Rental_ID'),
+        "pricelist_id": get_last_id('../pricelists.csv', 'Pricelist_ID')
+    }
 
 
 def create_users_file(start_date, end_date):
@@ -317,6 +321,7 @@ def main():
         # Rename the file
             os.rename(f'../{filename}', f'../{new_filename}')
             print(f'Renamed: {filename} -> {new_filename}')
+    id_state_update()
     create_users_file(start_date, end_date)
     create_pricelists_file()
     create_cars()
