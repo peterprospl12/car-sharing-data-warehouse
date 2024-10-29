@@ -1,4 +1,5 @@
 import csv
+import glob
 import random
 from faker import Faker
 from datetime import datetime
@@ -7,7 +8,7 @@ import pandas as pd
 fake = Faker()
 
 # Define the constant date to split the data
-SPLIT_DATE = datetime(2024, 3, 1)
+SPLIT_DATE = datetime(2028, 12, 31)
 
 def create_damage_csv():
     # Read existing data
@@ -15,6 +16,23 @@ def create_damage_csv():
     users = pd.read_csv('../users.csv')
     rentals = pd.read_csv('../rentals.csv')
     car_states = pd.read_csv('../cars_states.csv')
+
+    cars_files = glob.glob('../cars_*.csv')
+    users_files = glob.glob('../users_*.csv')
+    rentals_files = glob.glob('../rentals_*.csv')
+    car_states_files = glob.glob('../cars_states_*.csv')
+
+    # Read and concatenate all matching files
+    cars2 = pd.concat([pd.read_csv(f) for f in cars_files], ignore_index=True)
+    users2 = pd.concat([pd.read_csv(f) for f in users_files], ignore_index=True)
+    rentals2 = pd.concat([pd.read_csv(f) for f in rentals_files], ignore_index=True)
+    car_states2 = pd.concat([pd.read_csv(f) for f in car_states_files], ignore_index=True)
+
+    # Concatenate the original and new data
+    cars = pd.concat([cars, cars2], ignore_index=True)
+    users = pd.concat([users, users2], ignore_index=True)
+    rentals = pd.concat([rentals, rentals2], ignore_index=True)
+    car_states = pd.concat([car_states, car_states2], ignore_index=True)
 
     # Convert date strings to datetime objects
     rentals['Rental_date_start'] = pd.to_datetime(rentals['Rental_date_start'])
