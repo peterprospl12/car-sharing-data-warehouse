@@ -19,8 +19,8 @@ N_CAR_STATES = 2  # Number of car states per car (amount of car states >= N_CARS
 N_PRICE_INCREASES = 1  # Number of pricelist changes
 N_RENTALS = 10  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
 
-start_date = datetime(2024, 1, 1)
-end_date = datetime(2025, 12, 31)
+start_date = datetime(2026, 12, 31)
+end_date = datetime(2027, 12, 31)
 
 # Possible car models with possible engine powers and luxury levels
 car_brands_and_models = [
@@ -232,7 +232,7 @@ def create_rentals(start_date, end_date):
     existing_users_list = list(existing_users.values())
 
     total_days = (end_date - start_date).days
-    period_duration = total_days // N_PRICE_INCREASES
+    period_duration = total_days // len(pricelists)
 
     with open(rentals_file_path, mode='a', newline='') as rentals_file:
         rentals_writer = csv.writer(rentals_file)
@@ -259,6 +259,9 @@ def create_rentals(start_date, end_date):
                     max_end_date = rental_start_date + timedelta(hours=5, minutes=59, seconds=59)
                     rental_end_date = fake.date_time_between(start_date=rental_start_date,
                                                              end_date=min(max_end_date, period_end_date))
+
+                    if rental_end_date <= rental_start_date:
+                        rental_end_date = rental_start_date + timedelta(hours=1)
 
                     overlap_found = False
                     for period in rental_periods:
