@@ -2,6 +2,16 @@
 UPDATE CarsStates
 SET Active = FALSE;
 
+UPDATE Users
+SET Nationality = CASE
+                      WHEN User_ID IN (SELECT User_ID FROM Users ORDER BY RANDOM() LIMIT 1) THEN 'France'
+                      WHEN User_ID IN (SELECT User_ID FROM Users ORDER BY RANDOM() LIMIT 2) THEN 'Greece'
+                      ELSE 'England'
+    END
+WHERE User_ID IN (
+    SELECT User_ID FROM Users ORDER BY RANDOM() LIMIT 4
+);
+
 -- Import additional data into the Users table
 COPY Users (User_ID, First_name, Last_name, PESEL, Driving_license_ID, License_receiving_date, Nationality, Email, Password)
     FROM '/tmp/data/users_additional.csv'
