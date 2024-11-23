@@ -39,6 +39,10 @@
       <Name>Date.dim</Name>
       <FullPath>Date.dim</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>WasDamaged.dim</Name>
+      <FullPath>WasDamaged.dim</FullPath>
+    </ProjectItem>
   </Dimensions>
   <DataSources>
     <ProjectItem>

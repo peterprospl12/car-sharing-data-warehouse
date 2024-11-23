@@ -40,8 +40,8 @@ INSERT INTO Location (LocationID, City, District)
 VALUES 
     (1, 'Warszawa', 'Centrum'),
     (2, 'Warszawa', 'Bemowo'),
-    (3, 'Gdañsk', 'Wrzeszcz'),
-	(4, 'Gdañsk', 'G³ówny');
+    (3, 'Gdansk', 'Wrzeszcz'),
+	(4, 'Gdansk', 'Glowny');
 
 -- Inserting 3 sample users for User table
 INSERT INTO [User] (UserID, PESEL, NameAndSurname, Nationality, Gender, DrivingExperienceCategory, AgeCategory, InsertionDate, DisactivationDate)
