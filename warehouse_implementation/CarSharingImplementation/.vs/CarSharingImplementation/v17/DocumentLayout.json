@@ -1,0 +1,116 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Time.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Time.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\User.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:User.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Date.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Date.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Car.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Car.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Car Sharing.dsv||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Car Sharing.dsv||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Location.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Location.dim",
+              "RelativeDocumentMoniker": "Location.dim",
+              "ToolTip": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Location.dim [Design]",
+              "RelativeToolTip": "Location.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-23T12:28:36.246Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\User.dim",
+              "RelativeDocumentMoniker": "User.dim",
+              "ToolTip": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\User.dim [Design]",
+              "RelativeToolTip": "User.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-23T12:20:55.563Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Time.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Time.dim",
+              "RelativeDocumentMoniker": "Time.dim",
+              "ToolTip": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Time.dim [Design]",
+              "RelativeToolTip": "Time.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-23T12:27:23.451Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Date.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Date.dim",
+              "RelativeDocumentMoniker": "Date.dim",
+              "ToolTip": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Date.dim [Design]",
+              "RelativeToolTip": "Date.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-23T12:35:04.429Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Car.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Car.dim",
+              "RelativeDocumentMoniker": "Car.dim",
+              "ToolTip": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Car.dim [Design]",
+              "RelativeToolTip": "Car.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-23T12:19:11.91Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Car Sharing.dsv [Design]",
+              "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Car Sharing.dsv",
+              "RelativeDocumentMoniker": "Car Sharing.dsv",
+              "ToolTip": "C:\\Users\\Tomasz\\Desktop\\CarSharingImplementation\\Car Sharing.dsv [Design]",
+              "RelativeToolTip": "Car Sharing.dsv [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-23T12:11:51.83Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
