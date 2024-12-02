@@ -750,9 +750,9 @@ The CALCULATE command controls the aggregation of leaf cells in the cube.
 If the CALCULATE command is deleted or modified, the data within the cube is affected.
 You should edit this command only if you manually specify how the cube is aggregated.
 */
-CALCULATE; 
+CALCULATE;  
 CREATE MEMBER CURRENTCUBE.[Measures].DrivingTime
- AS [Measures].[RentalDuration]-[Measures].[LayoverTime], 
+ AS [Measures].[Rental Duration]-[Measures].[Layover Time], 
 VISIBLE = 1  ; </Text>
         </Command>
       </Commands>

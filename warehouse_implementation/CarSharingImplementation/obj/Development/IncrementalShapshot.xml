@@ -75,7 +75,7 @@
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Cube</Type>
-        <TimeStamp>jgL59wHtlKi6QzKRMnKp+YB62Oc=02.12.2024 23:17:2223.11.2024 13:18:11A+OfLJywZSQjOfRyWCPNKFoSX9A=23.11.2024 23:53:1323.11.2024 13:18:11</TimeStamp>
+        <TimeStamp>lt7ScVWbAFYhzuqoCkiI6nitkFg=02.12.2024 23:43:4023.11.2024 13:18:11A+OfLJywZSQjOfRyWCPNKFoSX9A=23.11.2024 23:53:1323.11.2024 13:18:11</TimeStamp>
         <ID>
           <String>Car Sharing</String>
         </ID>
@@ -92,5 +92,5 @@
   </Snapshot>
   <AssemblyLocations />
   <ProcessingComplete>true</ProcessingComplete>
-  <LastDeployed>2024-12-02T22:17:27.906667Z</LastDeployed>
+  <LastDeployed>2024-12-02T22:43:41.84Z</LastDeployed>
 </DeploymentSnapshot>
