@@ -13,14 +13,14 @@ import pandas as pd
 fake = Faker('pl_PL')
 fake.add_provider(VehicleProvider)
 
-N_USERS = 2  # Number of users
-N_CARS = 2  # Number of cars
+N_USERS = 3  # Number of users
+N_CARS = 3  # Number of cars
 N_CAR_STATES = 2  # Number of car states per car (amount of car states >= N_CARS * N_PRICE_INCREASE)
 N_PRICE_INCREASES = 1  # Number of pricelist changes
-N_RENTALS = 10  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
+N_RENTALS = 5  # Number of car rentals per vehicle (amount of car rentals >= N_CAR_STATES * N_USERS)
 
-start_date = datetime(2023, 12, 31)
-end_date = datetime(2024, 12, 31)
+start_date = datetime(2022, 1, 1)
+end_date = datetime(2023, 12, 31)
 
 # Possible car models with possible engine powers and luxury levels
 car_brands_and_models = [

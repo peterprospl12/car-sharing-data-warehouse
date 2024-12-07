@@ -1,4 +1,13 @@
 USE CarSharing
+/*
+
+DROP TABLE IF EXISTS Car;
+DROP TABLE IF EXISTS Date;
+DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS [User];
+DROP TABLE IF EXISTS Time;
+DROP TABLE IF EXISTS Rental;
+*/
 
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2024-11-10 15:00:36.016
@@ -21,13 +30,15 @@ CREATE TABLE Car (
 -- Table: Date (DT)
 CREATE TABLE Date (
     DateID int  NOT NULL,
+	DateBK varchar(10) NOT NULL,
     Day int  NOT NULL,
     Year int  NOT NULL,
     Month varchar(10)  NOT NULL,
     MonthNo int  NOT NULL,
     DayOfWeek varchar(10)  NOT NULL,
     DayOfWeekNo int  NOT NULL,
-    CONSTRAINT Date_pk PRIMARY KEY (DateID)
+    CONSTRAINT Date_pk PRIMARY KEY (DateID),
+	CONSTRAINT Date_bk UNIQUE (Year, MonthNo, Day)
 );
 
 -- Table: Location (DT)
@@ -60,9 +71,11 @@ CREATE TABLE Rental (
 -- Table: Time (DT)
 CREATE TABLE Time (
     TimeID int  NOT NULL,
+	TimeBK varchar(5) NOT NULL,
     Hour int  NOT NULL,
     Minute int  NOT NULL,
-    CONSTRAINT Time_pk PRIMARY KEY (TimeID)
+    CONSTRAINT Time_pk PRIMARY KEY (TimeID),
+	CONSTRAINT Time_bk UNIQUE (Hour, Minute)
 );
 
 -- Table: User (DT, SCD 2)
@@ -118,4 +131,3 @@ ALTER TABLE Rental ADD CONSTRAINT Rental_User
 ;
 
 -- End of file.
-
