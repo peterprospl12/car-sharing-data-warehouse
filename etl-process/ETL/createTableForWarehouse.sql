@@ -15,13 +15,13 @@ DROP TABLE IF EXISTS Rental;
 -- tables
 -- Table: Car (DT, SCD 2)
 CREATE TABLE Car (
-    CarID int  NOT NULL,
+    CarID int IDENTITY(1,1) NOT NULL,
+	LicensePlateNumberBK varchar(15)  NOT NULL UNIQUE,
     Brand varchar(30)  NOT NULL,
     Model varchar(30)  NOT NULL,
     Class varchar(10)  NOT NULL,
     EnginePowerCategory varchar(10)  NOT NULL,
     Transmission varchar(10)  NOT NULL,
-    LicensePlateNumber varchar(10)  NOT NULL,
     InsertionDate date  NOT NULL,
     DisactivationDate date,
     CONSTRAINT Car_pk PRIMARY KEY (CarID)
@@ -80,8 +80,8 @@ CREATE TABLE Time (
 
 -- Table: User (DT, SCD 2)
 CREATE TABLE [User] (
-    UserID int NOT NULL,
-    PESEL bigint NOT NULL,
+    UserID int IDENTITY(1,1) NOT NULL,
+    PESELBK varchar(11) NOT NULL UNIQUE,
     NameAndSurname varchar(60) NOT NULL,
     Nationality varchar(30) NOT NULL,
     Gender varchar(10) NOT NULL,

@@ -1,0 +1,1 @@
+i tutaj w teoretycznie powinnismy już ładować dane do rentala
