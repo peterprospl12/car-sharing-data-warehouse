@@ -1,0 +1,10 @@
+-- initial
+createTableForWarehouse
+insertDates
+insertTimes
+insertLocations
+
+-- data
+insertUsers
+insertCars
+insertRentals
