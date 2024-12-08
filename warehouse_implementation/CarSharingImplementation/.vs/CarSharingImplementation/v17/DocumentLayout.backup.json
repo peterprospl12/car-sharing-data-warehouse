@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Car Sharing.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\car-sharing-data-warehouse\\warehouse_implementation\\CarSharingImplementation\\Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
-      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\car-sharing-data-warehouse\\warehouse_implementation\\CarSharingImplementation\\WasDamaged.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
       "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:WasDamaged.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|C:\\Users\\Tomasz\\Desktop\\car-sharing-data-warehouse\\warehouse_implementation\\CarSharingImplementation\\Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{C727C89A-BF07-4C36-9038-4329E059D1B2}|CarSharingImplementation.dwproj|solutionrelative:Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Location.dim [Design]",
               "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\car-sharing-data-warehouse\\warehouse_implementation\\CarSharingImplementation\\Location.dim",
               "RelativeDocumentMoniker": "Location.dim",
@@ -50,7 +50,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "WasDamaged.dim [Design]",
               "DocumentMoniker": "C:\\Users\\Tomasz\\Desktop\\car-sharing-data-warehouse\\warehouse_implementation\\CarSharingImplementation\\WasDamaged.dim",
               "RelativeDocumentMoniker": "WasDamaged.dim",

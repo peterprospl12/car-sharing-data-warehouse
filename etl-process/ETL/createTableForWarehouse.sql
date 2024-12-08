@@ -52,6 +52,7 @@ CREATE TABLE Location (
 
 -- Table: Rental (FT)
 CREATE TABLE Rental ( 
+    RentalID int IDENTITY(1,1) NOT NULL,
 	StartDateID int NOT NULL,
 	StartTimeID int NOT NULL,
 	UserID int NOT NULL,
@@ -66,7 +67,7 @@ CREATE TABLE Rental (
 	RentalDuration int NOT NULL,
 	DriverAge int NOT NULL,
 	YearsOfDrivingExperience int NOT NULL, 
-	CONSTRAINT Rental_pk PRIMARY KEY (UserID, CarID, StartLocationID, EndLocationID, StartTimeID, StartDateID)
+	CONSTRAINT Rental_pk UNIQUE (UserID, CarID, StartLocationID, EndLocationID, StartTimeID, StartDateID)
 );
 
 -- Table: Time (DT)

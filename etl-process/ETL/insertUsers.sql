@@ -1,6 +1,9 @@
 USE CarSharing
 GO
 
+-- ETL Date
+DECLARE @ETLDate DATETIME = '2023-12-31';
+
 -- Extract data from relational database into Temp tables
 IF (OBJECT_ID('dbo.Staging_Users') IS NOT NULL) 
     DROP TABLE dbo.Staging_Users;
@@ -38,7 +41,7 @@ MERGE INTO [User] AS Target
 USING Staging_Users AS Source
 ON Target.PESELBK = Source.UserBK
 WHEN MATCHED AND (Target.NameAndSurname != Source.FirstName + ' ' + Source.LastName OR Target.Nationality != Source.Nationality) THEN
-    UPDATE SET DisactivationDate = GETDATE();
+    UPDATE SET DisactivationDate = @ETLDate;
 
 -- Insert new records
 INSERT INTO [User] (PESELBK, NameAndSurname, Nationality, Gender, DrivingExperienceCategory, AgeCategory, InsertionDate)
@@ -51,18 +54,18 @@ SELECT
         ELSE 'Man'
     END AS Gender,
     CASE 
-        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, GETDATE()) <= 2 THEN 'Beginner'
-        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, GETDATE()) <= 5 THEN 'Intermediate'
-        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, GETDATE()) <= 10 THEN 'Experienced'
+        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, @ETLDate) <= 2 THEN 'Beginner'
+        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, @ETLDate) <= 5 THEN 'Intermediate'
+        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, @ETLDate) <= 10 THEN 'Experienced'
         ELSE 'Advanced'
     END AS DrivingExperienceCategory,
     CASE 
-        WHEN DATEDIFF(YEAR, Source.BirthDate, GETDATE()) BETWEEN 18 AND 24 THEN 'Young'
-        WHEN DATEDIFF(YEAR, Source.BirthDate, GETDATE()) BETWEEN 25 AND 34 THEN 'Young adult'
-        WHEN DATEDIFF(YEAR, Source.BirthDate, GETDATE()) BETWEEN 35 AND 60 THEN 'Adult'
+        WHEN DATEDIFF(YEAR, Source.BirthDate, @ETLDate) BETWEEN 18 AND 24 THEN 'Young'
+        WHEN DATEDIFF(YEAR, Source.BirthDate, @ETLDate) BETWEEN 25 AND 34 THEN 'Young adult'
+        WHEN DATEDIFF(YEAR, Source.BirthDate, @ETLDate) BETWEEN 35 AND 60 THEN 'Adult'
         ELSE 'Elderly'
     END AS AgeCategory,
-    GETDATE()
+    @ETLDate
 FROM Staging_Users AS Source
 LEFT JOIN [User] AS Target
 ON Target.PESELBK = Source.UserBK

@@ -28,6 +28,9 @@ CREATE TABLE dbo.LuxuryTemp (
 );
 GO
 
+-- ETL Date
+DECLARE @ETLDate DATETIME = '2023-12-31';
+
 BULK INSERT dbo.LuxuryTemp
 FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\cars_luxury.csv'
 WITH
@@ -44,7 +47,7 @@ MERGE INTO Car AS Target
 USING Staging_Cars AS Source
 ON Target.LicensePlateNumberBK = Source.CarBK
 WHEN MATCHED AND (Target.Brand != Source.Brand OR Target.Model != Source.Model) THEN
-    UPDATE SET DisactivationDate = GETDATE();
+    UPDATE SET DisactivationDate = @ETLDate;
 
 -- Insert new records
 INSERT INTO Car (LicensePlateNumberBK, Brand, Model, Class, EnginePowerCategory, Transmission, InsertionDate)
@@ -64,7 +67,7 @@ SELECT
         ELSE 'Big' 
     END AS EnginePowerCategory,
     Source.Transmission, 
-    GETDATE()
+    @ETLDate
 FROM Staging_Cars AS Source
 LEFT JOIN Car AS Target
     ON Target.LicensePlateNumberBK = Source.CarBK

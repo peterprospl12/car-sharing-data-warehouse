@@ -40,6 +40,8 @@ CREATE TABLE dbo.DamageTemp (
 );
 GO
 
+DECLARE @ETLDate DATETIME = '2020-01-01';
+
 -- Import danych z CSV
 BULK INSERT dbo.DamageTemp
 FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\damages.csv'
@@ -80,10 +82,14 @@ WITH AggregatedDamages AS (
 ParsedLocations AS (
     SELECT 
         r.Rental_ID,
-        CAST(PARSENAME(REPLACE(r.Start_location, ' ', '.'), 2) AS FLOAT) AS StartLatitude,
-        CAST(PARSENAME(REPLACE(r.Start_location, ' ', '.'), 1) AS FLOAT) AS StartLongitude,
-        CAST(PARSENAME(REPLACE(r.End_location, ' ', '.'), 2) AS FLOAT) AS EndLatitude,
-        CAST(PARSENAME(REPLACE(r.End_location, ' ', '.'), 1) AS FLOAT) AS EndLongitude
+        -- Wydzielanie StartLatitude (pierwsza liczba przed spacj¹)
+        CAST(SUBSTRING(r.Start_location, 1, CHARINDEX(' ', r.Start_location) - 1) AS FLOAT) AS StartLatitude,
+        -- Wydzielanie StartLongitude (druga liczba po spacji)
+        CAST(SUBSTRING(r.Start_location, CHARINDEX(' ', r.Start_location) + 1, LEN(r.Start_location)) AS FLOAT) AS StartLongitude,
+        -- Wydzielanie EndLatitude (pierwsza liczba przed spacj¹)
+        CAST(SUBSTRING(r.End_location, 1, CHARINDEX(' ', r.End_location) - 1) AS FLOAT) AS EndLatitude,
+        -- Wydzielanie EndLongitude (druga liczba po spacji)
+        CAST(SUBSTRING(r.End_location, CHARINDEX(' ', r.End_location) + 1, LEN(r.End_location)) AS FLOAT) AS EndLongitude
     FROM TraficarDefaultDatabase.dbo.Rentals AS r
 ),
 MatchedCities AS (
@@ -117,7 +123,6 @@ SelectedLocations AS (
     LEFT JOIN RandomLocations AS endLoc 
         ON endLoc.City = mc.EndCity AND endLoc.RandomOrder = 1
 )
-SELECT * FROM SelectedLocations
 -- Wstawianie danych do tabeli faktów Rental
 INSERT INTO Rental (
     StartDateID, 
@@ -158,15 +163,18 @@ SELECT
         END + '-' + 
         RIGHT('00' + CAST(CAST(SUBSTRING(su.PESEL, 3, 2) AS INT) % 20 AS VARCHAR), 2) + '-' + 
         SUBSTRING(su.PESEL, 5, 2) AS DATE
-    ), GETDATE()) AS DriverAge,
-    DATEDIFF(YEAR, su.License_receiving_date, GETDATE()) AS YearsOfDrivingExperience
+    ), @ETLDate) AS DriverAge,
+    DATEDIFF(YEAR, su.License_receiving_date, @ETLDate) AS YearsOfDrivingExperience
 FROM TraficarDefaultDatabase.dbo.Rentals AS r
 JOIN Date AS d ON d.DateBK = CONVERT(varchar, YEAR(r.Rental_date_start)) + '-' + RIGHT('00' + CONVERT(varchar, MONTH(r.Rental_date_start)), 2) + '-' + RIGHT('00' + CONVERT(varchar, DAY(r.Rental_date_start)), 2)
 JOIN Time AS t ON t.TimeBK = RIGHT('00' + CONVERT(varchar, DATEPART(HOUR, r.Rental_date_start)), 2) + ':' + RIGHT('00' + CONVERT(varchar, DATEPART(MINUTE, r.Rental_date_start)), 2)
 JOIN TraficarDefaultDatabase.dbo.Users AS su ON su.User_ID = r.User_ID
-JOIN [User] AS u ON u.PESELBK = su.PESEL
+JOIN [User] AS u ON u.PESELBK = su.PESEL AND u.DisactivationDate IS NULL
 JOIN TraficarDefaultDatabase.dbo.CarsStates AS tmp_car_states ON tmp_car_states.CarState_ID = r.Car_State_ID
 JOIN TraficarDefaultDatabase.dbo.Cars AS default_car ON default_car.Car_ID = tmp_car_states.Car_ID
-JOIN Car AS c ON c.LicensePlateNumberBK = default_car.License_plate_number
+JOIN Car AS c ON c.LicensePlateNumberBK = default_car.License_plate_number AND c.DisactivationDate IS NULL
 LEFT JOIN AggregatedDamages AS dmg ON dmg.Rental_id = r.Rental_ID
 JOIN SelectedLocations AS sel ON sel.Rental_ID = r.Rental_ID;
+
+DROP TABLE CityLocations;
+DROP TABLE DamageTemp;
