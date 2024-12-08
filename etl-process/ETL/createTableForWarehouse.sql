@@ -1,6 +1,7 @@
 USE CarSharing
-/*
+GO
 
+/*
 DROP TABLE IF EXISTS Car;
 DROP TABLE IF EXISTS Date;
 DROP TABLE IF EXISTS Location;
@@ -29,7 +30,7 @@ CREATE TABLE Car (
 
 -- Table: Date (DT)
 CREATE TABLE Date (
-    DateID int  NOT NULL,
+    DateID int IDENTITY(1,1) NOT NULL,
 	DateBK varchar(10) NOT NULL,
     Day int  NOT NULL,
     Year int  NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE Date (
 
 -- Table: Location (DT)
 CREATE TABLE Location (
-    LocationID int  NOT NULL,
+    LocationID int IDENTITY(1,1) NOT NULL,
     City varchar(30)  NOT NULL,
     District varchar(30)  NOT NULL,
     CONSTRAINT Location_pk PRIMARY KEY (LocationID)
@@ -70,7 +71,7 @@ CREATE TABLE Rental (
 
 -- Table: Time (DT)
 CREATE TABLE Time (
-    TimeID int  NOT NULL,
+    TimeID int IDENTITY(1,1) NOT NULL,
 	TimeBK varchar(5) NOT NULL,
     Hour int  NOT NULL,
     Minute int  NOT NULL,

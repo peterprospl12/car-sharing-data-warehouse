@@ -13,10 +13,10 @@ SPLIT_DATE = datetime(2028, 12, 31)
 def create_damage_csv():
     # Read existing data
 
-    cars_files = glob.glob('../cars_*.csv')
-    users_files = glob.glob('../users_*.csv')
-    rentals_files = glob.glob('../rentals_*.csv')
-    car_states_files = glob.glob('../cars_states_*.csv')
+    cars_files = glob.glob('../cars.csv')
+    users_files = glob.glob('../users.csv')
+    rentals_files = glob.glob('../rentals.csv')
+    car_states_files = glob.glob('../cars_states.csv')
 
     # Read and concatenate all matching files
     cars2 = pd.concat([pd.read_csv(f, encoding='windows-1252') for f in cars_files], ignore_index=True)

@@ -95,16 +95,22 @@ def create_users_file(start_date, end_date):
                 max_license_date = min_license_date + timedelta(days=1)
 
             license_receiving_date = fake.date_between_dates(min_license_date, max_license_date)
+            gender = random.choice(['M', 'F'])
+            first_name = fake.first_name_male() if gender == 'M' else fake.first_name_female()
+            last_name = fake.last_name_male() if gender == 'M' else fake.last_name_female()
+            nationalities = ['Poland', 'Other']
+            weights = [0.8, 0.2]
+            nationality = random.choices(nationalities, weights)[0]
 
             writer.writerow(
                 [
                     id_state["user_id"],
-                    fake.first_name(),
-                    fake.last_name(),
-                    fake.pesel(date_of_birth=datetime.combine(birth_date, datetime.min.time())),
+                    first_name,
+                    last_name,
+                    fake.pesel(date_of_birth=datetime.combine(birth_date, datetime.min.time()), sex=gender),
                     fake.random_int(min=100000, max=999999),
                     license_receiving_date,
-                    fake.country(),
+                    nationality,
                     fake.email(),
                     fake.password()
                 ]
@@ -172,7 +178,7 @@ def create_cars():
                     brand_and_model[0],
                     brand_and_model[1],
                     random.choice(brand_and_model[2]),
-                    fake.boolean(chance_of_getting_true=50),
+                    int(fake.boolean(chance_of_getting_true=50)),
                     fake.license_plate(),
                 ]
             )
@@ -201,9 +207,9 @@ def create_car_states():
         for car in existing_cars:
             for pricelist in existing_pricelists:
                 id_state["car_state_id"] += 1
-                is_broken = fake.boolean(chance_of_getting_true=2)
-                is_used = False if is_broken else fake.boolean(chance_of_getting_true=30)
-                is_active = pricelist['Pricelist_ID'] == existing_pricelists[-1]['Pricelist_ID']
+                is_broken = int(fake.boolean(chance_of_getting_true=2))
+                is_used = 0 if is_broken else int(fake.boolean(chance_of_getting_true=30))
+                is_active = int(pricelist['Pricelist_ID'] == existing_pricelists[-1]['Pricelist_ID'])
 
                 car_states_writer.writerow(
                     [
