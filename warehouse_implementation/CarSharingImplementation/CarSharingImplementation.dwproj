@@ -40,8 +40,8 @@
       <FullPath>Date.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>WasDamaged.dim</Name>
-      <FullPath>WasDamaged.dim</FullPath>
+      <Name>Was Damaged.dim</Name>
+      <FullPath>Was Damaged.dim</FullPath>
     </ProjectItem>
   </Dimensions>
   <DataSources>

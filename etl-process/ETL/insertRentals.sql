@@ -1,6 +1,5 @@
 USE CarSharing;
 GO
-DELETE FROM Rental
 -- Usuwanie tymczasowych tabel
 IF OBJECT_ID('dbo.DamageTemp') IS NOT NULL 
     DROP TABLE dbo.DamageTemp;
@@ -40,11 +39,12 @@ CREATE TABLE dbo.DamageTemp (
 );
 GO
 
-DECLARE @ETLDate DATETIME = '2025-01-01';
+DECLARE @ETLDate DATETIME = '2024-01-01';
 
 -- Import danych z CSV
 BULK INSERT dbo.DamageTemp
-FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
+--FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
+FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\t1\damages.csv'
 WITH (
     FIRSTROW = 2,
     FIELDTERMINATOR = ',',
@@ -110,7 +110,7 @@ RandomLocations AS (
         City,
         LocationID,
         ROW_NUMBER() OVER (PARTITION BY City ORDER BY NEWID()) AS RandomOrder
-    FROM dbo.Location
+    FROM CarSharing.dbo.Location
 ),
 SelectedLocations AS (
     SELECT 

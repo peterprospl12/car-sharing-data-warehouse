@@ -1,18 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "CarSharingImplementation", "CarSharingImplementation.dwproj", "{C727C89A-BF07-4C36-9038-4329E059D1B2}"
+Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "CarSharingImplementation", "CarSharingImplementation.dwproj", "{29B15557-4B8D-409B-8EEA-C880731382B9}"
+EndProject
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "LoadETL", "..\LoadETL\LoadETL.dtproj", "{05104F38-4AB9-4DD7-8692-361E88EE351F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C727C89A-BF07-4C36-9038-4329E059D1B2}.Development|Default.ActiveCfg = Development
-		{C727C89A-BF07-4C36-9038-4329E059D1B2}.Development|Default.Build.0 = Development
-		{C727C89A-BF07-4C36-9038-4329E059D1B2}.Development|Default.Deploy.0 = Development
+		{29B15557-4B8D-409B-8EEA-C880731382B9}.Development|Default.ActiveCfg = Development
+		{29B15557-4B8D-409B-8EEA-C880731382B9}.Development|Default.Build.0 = Development
+		{29B15557-4B8D-409B-8EEA-C880731382B9}.Development|Default.Deploy.0 = Development
+		{05104F38-4AB9-4DD7-8692-361E88EE351F}.Development|Default.ActiveCfg = Development
+		{05104F38-4AB9-4DD7-8692-361E88EE351F}.Development|Default.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

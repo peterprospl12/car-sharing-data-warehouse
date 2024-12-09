@@ -32,7 +32,8 @@ GO
 DECLARE @ETLDate DATETIME = '2025-01-01';
 
 BULK INSERT dbo.LuxuryTemp
-FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\cars_luxury.csv'
+--FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\cars_luxury.csv'
+FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\cars_luxury.csv'
 WITH
 (
     FIRSTROW = 2,
@@ -40,7 +41,6 @@ WITH
     ROWTERMINATOR = '0x0a',
     TABLOCK
 );
-SELECT * FROM dbo.LuxuryTemp
 
 -- Update existing records by setting DisactivationDate
 MERGE INTO Car AS Target
