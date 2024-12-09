@@ -29,15 +29,15 @@ CREATE TABLE dbo.LuxuryTemp (
 GO
 
 -- ETL Date
-DECLARE @ETLDate DATETIME = '2023-12-31';
+DECLARE @ETLDate DATETIME = '2025-01-01';
 
 BULK INSERT dbo.LuxuryTemp
-FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\cars_luxury.csv'
+FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\cars_luxury.csv'
 WITH
 (
     FIRSTROW = 2,
     FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n',
+    ROWTERMINATOR = '0x0a',
     TABLOCK
 );
 SELECT * FROM dbo.LuxuryTemp
@@ -46,7 +46,15 @@ SELECT * FROM dbo.LuxuryTemp
 MERGE INTO Car AS Target
 USING Staging_Cars AS Source
 ON Target.LicensePlateNumberBK = Source.CarBK
-WHEN MATCHED AND (Target.Brand != Source.Brand OR Target.Model != Source.Model) THEN
+WHEN MATCHED AND 
+     (Target.Brand != Source.Brand 
+      OR Target.Model != Source.Model 
+      OR Target.EnginePowerCategory != 
+         CASE 
+             WHEN Source.EnginePower < 110 THEN 'Small' 
+             WHEN Source.EnginePower BETWEEN 110 AND 180 THEN 'Average' 
+             ELSE 'Big' 
+         END) THEN
     UPDATE SET DisactivationDate = @ETLDate;
 
 -- Insert new records
@@ -74,7 +82,14 @@ LEFT JOIN Car AS Target
 LEFT JOIN dbo.LuxuryTemp AS LuxuryTemp
     ON Source.Brand = LuxuryTemp.Brand 
     AND Source.Model = LuxuryTemp.Model
-WHERE Target.LicensePlateNumberBK IS NULL OR Target.DisactivationDate IS NOT NULL;
+WHERE Target.LicensePlateNumberBK IS NULL 
+   OR Target.DisactivationDate IS NOT NULL
+   OR (Target.EnginePowerCategory != 
+       CASE 
+           WHEN Source.EnginePower < 110 THEN 'Small' 
+           WHEN Source.EnginePower BETWEEN 110 AND 180 THEN 'Average' 
+           ELSE 'Big' 
+       END);
 GO
 
 -- Drop temporary tables

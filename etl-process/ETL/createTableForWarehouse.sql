@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS Rental;
 -- Table: Car (DT, SCD 2)
 CREATE TABLE Car (
     CarID int IDENTITY(1,1) NOT NULL,
-	LicensePlateNumberBK varchar(15)  NOT NULL UNIQUE,
+	LicensePlateNumberBK varchar(15)  NOT NULL,
     Brand varchar(30)  NOT NULL,
     Model varchar(30)  NOT NULL,
     Class varchar(10)  NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE Time (
 -- Table: User (DT, SCD 2)
 CREATE TABLE [User] (
     UserID int IDENTITY(1,1) NOT NULL,
-    PESELBK varchar(11) NOT NULL UNIQUE,
+    PESELBK varchar(11) NOT NULL,
     NameAndSurname varchar(60) NOT NULL,
     Nationality varchar(30) NOT NULL,
     Gender varchar(10) NOT NULL,

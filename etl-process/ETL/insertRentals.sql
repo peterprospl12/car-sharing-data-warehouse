@@ -40,11 +40,11 @@ CREATE TABLE dbo.DamageTemp (
 );
 GO
 
-DECLARE @ETLDate DATETIME = '2020-01-01';
+DECLARE @ETLDate DATETIME = '2025-01-01';
 
 -- Import danych z CSV
 BULK INSERT dbo.DamageTemp
-FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\damages.csv'
+FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
 WITH (
     FIRSTROW = 2,
     FIELDTERMINATOR = ',',

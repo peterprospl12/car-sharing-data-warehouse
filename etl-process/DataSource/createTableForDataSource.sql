@@ -1,4 +1,4 @@
-USE TraficarDefaultDatabase;
+﻿USE TraficarDefaultDatabase;
 /*
 DROP TABLE IF EXISTS Rentals;
 DROP TABLE IF EXISTS CarsStates;

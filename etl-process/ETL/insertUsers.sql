@@ -2,7 +2,7 @@ USE CarSharing
 GO
 
 -- ETL Date
-DECLARE @ETLDate DATETIME = '2023-12-31';
+DECLARE @ETLDate DATETIME = '2025-01-01';
 
 -- Extract data from relational database into Temp tables
 IF (OBJECT_ID('dbo.Staging_Users') IS NOT NULL) 
