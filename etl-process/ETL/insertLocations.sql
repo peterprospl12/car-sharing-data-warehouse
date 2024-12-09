@@ -1,4 +1,4 @@
-USE CarSharing
+﻿USE CarSharing
 GO
 
 -- Inserting all business used locations for Location table

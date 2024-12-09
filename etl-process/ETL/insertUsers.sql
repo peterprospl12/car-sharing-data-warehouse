@@ -1,4 +1,4 @@
-USE CarSharing
+﻿USE CarSharing
 GO
 
 -- ETL Date
