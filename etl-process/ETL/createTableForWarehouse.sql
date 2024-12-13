@@ -2,12 +2,15 @@ USE CarSharing
 GO
 
 /*
+USE CarSharing
+DELETE FROM RentalSpectator;
 DELETE FROM Rental;
 DELETE FROM Car;
 DELETE FROM Time;
 DELETE FROM Location;
 DELETE FROM [User];
 DELETE FROM Date;
+DBCC CHECKIDENT ('RentalSpectator', RESEED, 0);
 DBCC CHECKIDENT ('Rental', RESEED, 0);
 DBCC CHECKIDENT ('Car', RESEED, 0);
 DBCC CHECKIDENT ('Time', RESEED, 0);
@@ -15,6 +18,7 @@ DBCC CHECKIDENT ('Location', RESEED, 0);
 DBCC CHECKIDENT ('[User]', RESEED, 0);
 DBCC CHECKIDENT ('Date', RESEED, 0);
 
+DROP TABLE RentalSpectator;
 DROP TABLE Rental;
 DROP TABLE Car;
 DROP TABLE Time;
@@ -27,7 +31,14 @@ DROP TABLE Date;
 -- Last modification date: 2024-11-10 15:00:36.016
 
 -- tables
+
+CREATE TABLE dbo.RentalSpectator (
+    RentalSpectatorID int IDENTITY(1,1) NOT NULL,
+    RentalID INT
+);
+
 -- Table: Car (DT, SCD 2)
+
 CREATE TABLE Car (
     CarID int IDENTITY(1,1) NOT NULL,
 	LicensePlateNumberBK varchar(15)  NOT NULL,

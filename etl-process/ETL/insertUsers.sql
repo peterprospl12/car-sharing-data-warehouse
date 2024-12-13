@@ -1,10 +1,8 @@
 ﻿USE CarSharing
 GO
 
--- ETL Date
 DECLARE @ETLDate DATETIME = '2025-01-01';
 
--- Extract data from relational database into Temp tables
 IF (OBJECT_ID('dbo.Staging_Users') IS NOT NULL) 
     DROP TABLE dbo.Staging_Users;
 
@@ -36,14 +34,12 @@ SELECT
     ) AS BirthDate
 FROM TraficarDefaultDatabase.dbo.Users;
 
--- Update existing records by setting DisactivationDate
 MERGE INTO [User] AS Target
 USING Staging_Users AS Source
 ON Target.PESELBK = Source.UserBK
 WHEN MATCHED AND (Target.NameAndSurname != Source.FirstName + ' ' + Source.LastName OR Target.Nationality != Source.Nationality) THEN
     UPDATE SET DisactivationDate = @ETLDate;
 
--- Insert new records
 INSERT INTO [User] (PESELBK, NameAndSurname, Nationality, Gender, DrivingExperienceCategory, AgeCategory, InsertionDate)
 SELECT 
     Source.UserBK, 

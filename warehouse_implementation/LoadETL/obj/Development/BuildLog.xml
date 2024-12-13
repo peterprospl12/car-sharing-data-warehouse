@@ -2,7 +2,7 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>LoadETL</Name>
-    <LastWriteTime>2024-12-09T20:36:41.1142226Z</LastWriteTime>
+    <LastWriteTime>2024-12-13T21:28:48.217358Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
@@ -13,7 +13,7 @@
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>StandardETL.dtsx</Name>
-      <LastWriteTime>2024-12-09T20:29:48.1950255Z</LastWriteTime>
+      <LastWriteTime>2024-12-13T21:42:55.9621749Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

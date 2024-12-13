@@ -1,7 +1,6 @@
 USE CarSharing
 GO
 
--- Extract data from relational database into Temp tables
 IF (OBJECT_ID('dbo.Staging_Cars') IS NOT NULL) 
     DROP TABLE dbo.Staging_Cars;
 	
@@ -28,7 +27,6 @@ CREATE TABLE dbo.LuxuryTemp (
 );
 GO
 
--- ETL Date
 DECLARE @ETLDate DATETIME = '2025-01-01';
 
 BULK INSERT dbo.LuxuryTemp
@@ -42,7 +40,6 @@ WITH
     TABLOCK
 );
 
--- Update existing records by setting DisactivationDate
 MERGE INTO Car AS Target
 USING Staging_Cars AS Source
 ON Target.LicensePlateNumberBK = Source.CarBK
@@ -57,7 +54,6 @@ WHEN MATCHED AND
          END) THEN
     UPDATE SET DisactivationDate = @ETLDate;
 
--- Insert new records
 INSERT INTO Car (LicensePlateNumberBK, Brand, Model, Class, EnginePowerCategory, Transmission, InsertionDate)
 SELECT 
     Source.CarBK, 
@@ -92,6 +88,5 @@ WHERE Target.LicensePlateNumberBK IS NULL
        END);
 GO
 
--- Drop temporary tables
 DROP TABLE dbo.Staging_Cars;
 DROP TABLE dbo.LuxuryTemp;

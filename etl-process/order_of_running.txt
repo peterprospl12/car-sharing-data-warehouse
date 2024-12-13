@@ -1,0 +1,8 @@
+1. Run Initialize on VS Integration Service
+2. Set t1 on bulkInsertForDataSource and run it
+3. Set ETLDate to 2024-01-01 (insertUsers, insertCars, insertRentals) and damages path to t1 (insertRentals).
+4. Run StandartETL in VS Integration Service
+5. Change value of choosen records of User and Car (STD 2) IN DATASOURCE
+6. Set t2 on bulkInsertForDataSource and run it
+7. Set ETLDate to 2025-01-01 (insertUsers, insertCars, insertRentals) and damages path to t2(insertRentals).
+8. Run StandartETL in VS Integration Service

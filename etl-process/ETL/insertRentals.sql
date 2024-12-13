@@ -1,31 +1,11 @@
 USE CarSharing;
 GO
--- Usuwanie tymczasowych tabel
+
 IF OBJECT_ID('dbo.DamageTemp') IS NOT NULL 
     DROP TABLE dbo.DamageTemp;
 
 IF OBJECT_ID('dbo.CityLocations') IS NOT NULL
     DROP TABLE dbo.CityLocations;
-
-IF OBJECT_ID('dbo.SelectedLocations') IS NOT NULL
-    DROP TABLE dbo.SelectedLocations;
-
-IF OBJECT_ID('dbo.MatchedCities') IS NOT NULL
-    DROP TABLE dbo.MatchedCities;
-
-IF OBJECT_ID('dbo.ParsedLocations') IS NOT NULL
-    DROP TABLE dbo.ParsedLocations;
-
-IF OBJECT_ID('dbo.AggregatedDamages') IS NOT NULL
-    DROP TABLE dbo.AggregatedDamages;
-
-IF OBJECT_ID('dbo.RandomLocations') IS NOT NULL
-    DROP TABLE dbo.RandomLocations;
-
-
--- Tymczasowa tabela dla uszkodzeñ
-IF OBJECT_ID('dbo.DamageTemp') IS NOT NULL 
-    DROP TABLE dbo.DamageTemp;
 
 CREATE TABLE dbo.DamageTemp (
     Car_id INT,
@@ -39,12 +19,11 @@ CREATE TABLE dbo.DamageTemp (
 );
 GO
 
-DECLARE @ETLDate DATETIME = '2024-01-01';
+DECLARE @ETLDate DATETIME = '2025-01-01';
 
--- Import danych z CSV
 BULK INSERT dbo.DamageTemp
 --FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
-FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\t1\damages.csv'
+FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
 WITH (
     FIRSTROW = 2,
     FIELDTERMINATOR = ',',
@@ -52,7 +31,6 @@ WITH (
     TABLOCK
 );
 
--- Tabela lokalizacji miast
 CREATE TABLE CityLocations (
     LocationID INT PRIMARY KEY,
     City VARCHAR(100),
@@ -60,7 +38,6 @@ CREATE TABLE CityLocations (
     Longitude FLOAT
 );
 
--- Wstawianie danych miast
 INSERT INTO CityLocations (LocationID, City, Latitude, Longitude)
 VALUES
     (1, 'Warszawa', 52.2297, 21.0122),
@@ -70,7 +47,6 @@ VALUES
     (5, 'Poznañ', 52.4064, 16.9252),
     (6, '£ódŸ', 51.7592, 19.4560);
 
--- Agregacja kosztów napraw
 WITH AggregatedDamages AS (
     SELECT 
         Rental_id,
@@ -78,7 +54,6 @@ WITH AggregatedDamages AS (
     FROM dbo.DamageTemp
     GROUP BY Rental_id
 ),
--- Obliczanie miasta dla StartLocation i EndLocation
 ParsedLocations AS (
     SELECT 
         r.Rental_ID,
@@ -123,7 +98,7 @@ SelectedLocations AS (
     LEFT JOIN RandomLocations AS endLoc 
         ON endLoc.City = mc.EndCity AND endLoc.RandomOrder = 1
 )
--- Wstawianie danych do tabeli faktów Rental
+
 INSERT INTO Rental (
     StartDateID, 
     StartTimeID, 
@@ -174,7 +149,21 @@ JOIN TraficarDefaultDatabase.dbo.CarsStates AS tmp_car_states ON tmp_car_states.
 JOIN TraficarDefaultDatabase.dbo.Cars AS default_car ON default_car.Car_ID = tmp_car_states.Car_ID
 JOIN Car AS c ON c.LicensePlateNumberBK = default_car.License_plate_number AND c.DisactivationDate IS NULL
 LEFT JOIN AggregatedDamages AS dmg ON dmg.Rental_id = r.Rental_ID
-JOIN SelectedLocations AS sel ON sel.Rental_ID = r.Rental_ID;
+JOIN SelectedLocations AS sel ON sel.Rental_ID = r.Rental_ID
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM RentalSpectator AS rs
+    WHERE rs.RentalID = r.Rental_ID
+);
+
+INSERT INTO RentalSpectator (RentalID)
+SELECT r.Rental_ID
+FROM TraficarDefaultDatabase.dbo.Rentals AS r
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM RentalSpectator AS rs
+    WHERE rs.RentalID = r.Rental_ID
+);
 
 DROP TABLE CityLocations;
 DROP TABLE DamageTemp;

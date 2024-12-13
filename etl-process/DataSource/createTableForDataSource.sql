@@ -1,5 +1,17 @@
 ﻿USE TraficarDefaultDatabase;
 /*
+USE TraficarDefaultDatabase;
+DELETE FROM Rentals;
+DELETE FROM CarsStates;
+DELETE FROM Cars;
+DELETE FROM Pricelists;
+DELETE FROM [Users];
+DBCC CHECKIDENT ('Rentals', RESEED, 0);
+DBCC CHECKIDENT ('CarsStates', RESEED, 0);
+DBCC CHECKIDENT ('Cars', RESEED, 0);
+DBCC CHECKIDENT ('Pricelists', RESEED, 0);
+DBCC CHECKIDENT ('[Users]', RESEED, 0);
+
 DROP TABLE IF EXISTS Rentals;
 DROP TABLE IF EXISTS CarsStates;
 DROP TABLE IF EXISTS Cars;
