@@ -1,7 +1,7 @@
 ﻿USE CarSharing
 GO
 
-DECLARE @ETLDate DATETIME = '2025-01-01';
+DECLARE @ETLDate DATETIME = '2056-01-01';
 
 IF (OBJECT_ID('dbo.Staging_Users') IS NOT NULL) 
     DROP TABLE dbo.Staging_Users;
@@ -66,6 +66,24 @@ FROM Staging_Users AS Source
 LEFT JOIN [User] AS Target
 ON Target.PESELBK = Source.UserBK
 WHERE Target.PESELBK IS NULL OR Target.DisactivationDate IS NOT NULL;
+
+UPDATE [User]
+SET 
+    DrivingExperienceCategory = CASE 
+        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, @ETLDate) <= 2 THEN 'Beginner'
+        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, @ETLDate) <= 5 THEN 'Intermediate'
+        WHEN DATEDIFF(YEAR, Source.LicenseReceivingDate, @ETLDate) <= 10 THEN 'Experienced'
+        ELSE 'Advanced'
+    END,
+    AgeCategory = CASE 
+        WHEN DATEDIFF(YEAR, Source.BirthDate, @ETLDate) BETWEEN 18 AND 24 THEN 'Young'
+        WHEN DATEDIFF(YEAR, Source.BirthDate, @ETLDate) BETWEEN 25 AND 34 THEN 'Young adult'
+        WHEN DATEDIFF(YEAR, Source.BirthDate, @ETLDate) BETWEEN 35 AND 60 THEN 'Adult'
+        ELSE 'Elderly'
+    END
+FROM [User] AS Target
+INNER JOIN Staging_Users AS Source
+ON Target.PESELBK = Source.UserBK
 
 -- Drop temporary tables
 DROP TABLE dbo.Staging_Users;
