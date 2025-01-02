@@ -78,14 +78,22 @@ LEFT JOIN Car AS Target
 LEFT JOIN dbo.LuxuryTemp AS LuxuryTemp
     ON Source.Brand = LuxuryTemp.Brand 
     AND Source.Model = LuxuryTemp.Model
-WHERE Target.LicensePlateNumberBK IS NULL 
-   OR Target.DisactivationDate IS NOT NULL
-   OR (Target.EnginePowerCategory != 
-       CASE 
-           WHEN Source.EnginePower < 110 THEN 'Small' 
-           WHEN Source.EnginePower BETWEEN 110 AND 180 THEN 'Average' 
-           ELSE 'Big' 
-       END);
+WHERE 
+    (Target.LicensePlateNumberBK IS NULL 
+     OR Target.DisactivationDate IS NOT NULL
+     OR Target.EnginePowerCategory != 
+         CASE 
+             WHEN Source.EnginePower < 110 THEN 'Small' 
+             WHEN Source.EnginePower BETWEEN 110 AND 180 THEN 'Average' 
+             ELSE 'Big' 
+         END)
+    AND NOT EXISTS (
+        SELECT 1
+        FROM Car AS Target2
+        WHERE Target2.LicensePlateNumberBK = Source.CarBK
+        AND Target2.DisactivationDate IS NULL
+    );
+
 GO
 
 DROP TABLE dbo.Staging_Cars;

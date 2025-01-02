@@ -1,7 +1,7 @@
 ﻿USE CarSharing
 GO
 
-DECLARE @ETLDate DATETIME = '2056-01-01';
+DECLARE @ETLDate DATETIME = '2025-01-01';
 
 IF (OBJECT_ID('dbo.Staging_Users') IS NOT NULL) 
     DROP TABLE dbo.Staging_Users;
@@ -65,7 +65,13 @@ SELECT
 FROM Staging_Users AS Source
 LEFT JOIN [User] AS Target
 ON Target.PESELBK = Source.UserBK
-WHERE Target.PESELBK IS NULL OR Target.DisactivationDate IS NOT NULL;
+WHERE (Target.PESELBK IS NULL OR Target.DisactivationDate IS NOT NULL)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM [User] AS Target2
+      WHERE Target2.PESELBK = Source.UserBK
+      AND Target2.DisactivationDate IS NULL
+  );
 
 UPDATE [User]
 SET 
