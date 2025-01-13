@@ -1,0 +1,223 @@
+﻿-- 1. Compare popularity of available cars in terms of the
+--	  number of rentals over the past year.
+SELECT 
+    [Measures].[Rental Count] ON COLUMNS,
+    ORDER(
+        [Car].[Brand].[Brand].ALLMEMBERS * [Car].[Model].[Model].ALLMEMBERS,
+        [Measures].[Rental Count],
+        BDESC
+    ) ON ROWS
+FROM [Car Sharing]
+WHERE ([Date].[Year].[2024]);
+
+-- 2. Which car models generate the highest earnings per vehicle?
+WITH 
+MEMBER [Measures].[Vehicle Count] AS
+    COUNT(EXISTING [Car].[Car ID].[Car ID])
+
+MEMBER [Measures].[Revenue Per Vehicle] AS
+    IIF(
+        [Measures].[Vehicle Count] > 0, 
+        [Measures].[Rental Cost] / [Measures].[Vehicle Count], 
+        NULL
+    )
+
+SELECT 
+    NON EMPTY 
+    TOPCOUNT(
+        [Car].[Brand].[Brand].MEMBERS *
+		[Car].[Model].[Model].MEMBERS, // na oddawaniu zostawi� tylko brand �eby pokaza� �e dzieli przez ilo�� aut
+        10, 
+        [Measures].[Revenue Per Vehicle]
+    ) ON ROWS,
+    [Measures].[Revenue Per Vehicle] ON COLUMNS
+FROM 
+    [Car Sharing];
+
+-- 3. Compare the earnings of cars by grouping them according to
+--	  engine power and type of transmission.
+SELECT 
+NON EMPTY 
+	{ CrossJoin ( [Car].[Engine Power Category].[Engine Power Category].Members, 
+	[Car].[Transmission].[Transmission].Members ) } ON ROWS,
+    {[Measures].[Rental Cost]} ON COLUMNS
+FROM 
+    [Car Sharing];
+
+-- 4. Compare which cars were most frequently used in different
+--    city regions.
+-- TO BIERZE WSZYSTKIE MOZLIWOSCI
+SELECT 
+NON EMPTY 
+    [Start Location].[City].[City].MEMBERS *
+    [Start Location].[District].[District].MEMBERS *
+	[Car].[Brand].[Brand].MEMBERS *
+    [Car].[Model].[Model].MEMBERS ON ROWS,
+    {[Measures].[Rental Count]} ON COLUMNS   
+FROM
+    [Car Sharing];
+
+-- A tu czw�reczka
+WITH 
+MEMBER [Measures].[Top Car Rental] AS 
+    ( 
+        TopCount(
+            [Car].[Brand].[Brand].MEMBERS * 
+            [Car].[Model].[Model].MEMBERS, 
+            1, 
+            [Measures].[Rental Count]
+        ).Item(0),
+        [Measures].[Rental Count]
+    )
+
+MEMBER [Measures].[Top Car Brand] AS 
+    TopCount(
+        [Car].[Brand].[Brand].MEMBERS * 
+        [Car].[Model].[Model].MEMBERS, 
+        1, 
+        [Measures].[Rental Count]
+    ).Item(0).Item(0).Name
+
+MEMBER [Measures].[Top Car Model] AS 
+    TopCount(
+        [Car].[Brand].[Brand].MEMBERS * 
+        [Car].[Model].[Model].MEMBERS, 
+        1, 
+        [Measures].[Rental Count]
+    ).Item(0).Item(1).Name
+
+SELECT 
+NON EMPTY 
+    NONEMPTY(
+        [Start Location].[City].[City].MEMBERS * 
+        [Start Location].[District].[District].MEMBERS, 
+        [Measures].[Rental Count]
+    ) ON ROWS,
+    {[Measures].[Top Car Rental], [Measures].[Top Car Brand], [Measures].[Top Car Model]} ON COLUMNS
+FROM 
+    [Car Sharing];
+
+-- 5. Create a ranking of the 5 car models with the highest
+--    total mileage driven by customers in the last year.
+SELECT 
+NON EMPTY
+    TOPCOUNT(
+		[Car].[Brand].[Brand].MEMBERS *
+        [Car].[Model].[Model].MEMBERS,
+        5,
+        [Measures].[Driven Km]
+    ) ON ROWS,
+    {[Measures].[Driven Km]} ON COLUMNS
+FROM 
+    [Car Sharing]
+WHERE 
+    ([Date].[DateHierarchy].[Year].&[2024]); 
+
+-- 6. Create a ranking of age groups that caused the most
+--    damage over the past year.
+SELECT 
+NON EMPTY 
+    TOPCOUNT(
+        [User].[Age Category].[Age Category].MEMBERS,
+        5,
+        [Measures].[Rental Count]
+    ) ON ROWS,
+    {[Measures].[Rental Count]} ON COLUMNS
+FROM 
+    [Car Sharing]
+WHERE 
+    ([Was Damaged].[Was Damaged].&[Damaged], [Date].[DateHierarchy].[Year].&[2023]); -- Uszkodzenia w 2024 roku
+
+-- 7. Create a ranking of driving experience levels that resulted
+--    in the highest number of damages over the past year.
+SELECT 
+NON EMPTY 
+    TOPCOUNT(
+        [User].[Driving Experience Category].[Driving Experience Category].MEMBERS,
+        5,
+        [Measures].[Rental Count]
+    ) ON ROWS,
+    {[Measures].[Rental Count]} ON COLUMNS
+FROM 
+    [Car Sharing]
+WHERE 
+    ([Was Damaged].[Was Damaged].&[Damaged], [Date].[DateHierarchy].[Year].&[2023]); -- Uszkodzenia w 2024 roku
+
+-- 8. What is the average total number of rides for users who
+--    caused damage compared to those who never caused damage?
+WITH  
+  MEMBER [Measures].[User Has Damaged] AS
+    IIF(
+    Count(
+        NONEMPTY(
+        ([Was Damaged].[Was Damaged].[Damaged], [User].[User ID].CurrentMember),
+        [Measures].[Rental Count]
+        )
+    ) > 0, 1, 0
+  )
+  MEMBER [Measures].[Average Rental Count Damaged] AS
+	AVG(
+      Filter(
+        [User].[User ID].Children,
+       [Measures].[User Has Damaged] = 1
+      ),
+      [Measures].[Rental Count]
+    )
+  MEMBER [Measures].[Average Rental Count Undamaged] AS
+   AVG(
+      Filter(
+        [User].[User ID].Children,
+         [Measures].[User Has Damaged] = 0
+      ),
+       [Measures].[Rental Count]
+    )
+SELECT
+  {
+    [Measures].[Average Rental Count Damaged],
+    [Measures].[Average Rental Count Undamaged]
+  } ON COLUMNS
+FROM
+  [Car Sharing]
+
+-- 9. Considering the number of rides taken and the number of reported
+--    damages, what is the theoretical probability of causing damage
+--    within each age group of users?
+WITH
+  MEMBER [Measures].[Damaged Rides] AS
+    (
+      [Was Damaged].[Was Damaged].[Damaged],
+      [Measures].[Rental Count]
+    )
+  MEMBER [Measures].[Probability of Damage] AS
+    IIF(
+      [Measures].[Rental Count] = 0,
+      null,
+      [Measures].[Damaged Rides] / [Measures].[Rental Count]
+    )
+SELECT
+  { [Measures].[Probability of Damage] } ON COLUMNS,
+  [User].[Age Category].Children ON ROWS
+FROM
+  [Car Sharing];
+
+-- 10. What is the average cost of repairs caused by users with
+--     different levels of driving experience?
+WITH
+  MEMBER [Measures].[Damaged Rides] AS
+    (
+      [Was Damaged].[Was Damaged].[Damaged],
+      [Measures].[Rental Count]
+    )
+  MEMBER [Measures].[Average Repair Cost] AS
+    IIF(
+      [Measures].[Damaged Rides] = 0,
+      null,
+      [Measures].[Repair Cost] / [Measures].[Damaged Rides]
+    )
+SELECT
+  { [Measures].[Average Repair Cost] } ON COLUMNS,
+  NONEMPTY(
+    [User].[Driving Experience Category].[Driving Experience Category].MEMBERS
+  ) ON ROWS
+FROM
+  [Car Sharing]

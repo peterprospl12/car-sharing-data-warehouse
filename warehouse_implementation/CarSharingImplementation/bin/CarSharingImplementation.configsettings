@@ -3,10 +3,10 @@
     <DataSources>
       <DataSource>
         <ID>Car Sharing</ID>
-        <ConnectionString>Provider=SQLNCLI11.1;Data Source=DESKTOP-O4UBSJB;Integrated Security=SSPI;Initial Catalog=CarSharing</ConnectionString>
+        <ConnectionString>Provider=SQLNCLI11.1;Data Source=desktop-nof30j9;Integrated Security=SSPI;Initial Catalog=CarSharing</ConnectionString>
         <ImpersonationInfo>
           <ImpersonationMode xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">ImpersonateAccount</ImpersonationMode>
-          <Account xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">Tomasz</Account>
+          <Account xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">desktop-nof30j9\piotr</Account>
           <ImpersonationInfoSecurity xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">PasswordRemoved</ImpersonationInfoSecurity>
         </ImpersonationInfo>
       </DataSource>

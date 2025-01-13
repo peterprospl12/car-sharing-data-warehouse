@@ -22,23 +22,23 @@ def create_damage_csv():
     rentals_files = glob.glob('../rentals_*.csv')
     car_states_files = glob.glob('../cars_states_*.csv')
 
-    # Read and concatenate all matching files
-    cars2 = pd.concat([pd.read_csv(f) for f in cars_files], ignore_index=True)
-    users2 = pd.concat([pd.read_csv(f, encoding='cp1250') for f in users_files], ignore_index=True)
-    rentals2 = pd.concat([pd.read_csv(f) for f in rentals_files], ignore_index=True)
-    car_states2 = pd.concat([pd.read_csv(f) for f in car_states_files], ignore_index=True)
-
-    # Concatenate the original and new data
-    cars = pd.concat([cars, cars2], ignore_index=True)
-    users = pd.concat([users, users2], ignore_index=True)
-    rentals = pd.concat([rentals, rentals2], ignore_index=True)
-    car_states = pd.concat([car_states, car_states2], ignore_index=True)
+    # # Read and concatenate all matching files
+    # cars2 = pd.concat([pd.read_csv(f) for f in cars_files], ignore_index=True)
+    # users2 = pd.concat([pd.read_csv(f, encoding='cp1250') for f in users_files], ignore_index=True)
+    # rentals2 = pd.concat([pd.read_csv(f) for f in rentals_files], ignore_index=True)
+    # car_states2 = pd.concat([pd.read_csv(f) for f in car_states_files], ignore_index=True)
+    #
+    # # Concatenate the original and new data
+    # cars = pd.concat([cars, cars2], ignore_index=True)
+    # users = pd.concat([users, users2], ignore_index=True)
+    # rentals = pd.concat([rentals, rentals2], ignore_index=True)
+    # car_states = pd.concat([car_states, car_states2], ignore_index=True)
 
     # Convert date strings to datetime objects
     rentals['Rental_date_start'] = pd.to_datetime(rentals['Rental_date_start'])
     rentals['Rental_date_end'] = pd.to_datetime(rentals['Rental_date_end'])
 
-    with open('../damages_before_split.csv', mode='w', newline='', encoding='cp1250') as damages_file_before, \
+    with open('../damages.csv', mode='w', newline='', encoding='cp1250') as damages_file_before, \
             open('../damages_after_split.csv', mode='w', newline='', encoding='cp1250') as damages_file_after:
 
         damages_writer_before = csv.writer(damages_file_before)
@@ -48,7 +48,7 @@ def create_damage_csv():
         damages_writer_before.writerow(header)
         damages_writer_after.writerow(header)
 
-        for _ in range(10):  # Generate 100 damage records
+        for i in range(4000):  # Generate 100 damage records
             rental = rentals.sample(n=1).iloc[0]
             car_state = car_states[car_states['Car_state_ID'] == rental['Car_state_ID']]
             user = users[users['User_ID'] == rental['User_ID']]
@@ -77,7 +77,7 @@ def create_damage_csv():
             else:
                 damages_writer_after.writerow(row)
 
-                print(f"Damage record for car {car['Car_ID']} created.")
+            print(f"Damage record for car {car['Car_ID']} created.")
 def main():
     create_damage_csv()
 

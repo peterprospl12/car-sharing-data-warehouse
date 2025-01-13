@@ -19,63 +19,63 @@
     <ObjectSnapshots>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
-        <TimeStamp>g4htbHu78Qg41Bkf1bSUcfBoJSU=09.12.2024 20:08:2309.12.2024 20:08:23</TimeStamp>
+        <TimeStamp>HNKEjLqvnGzxwaLWHwrnYwawQB8=04.01.2025 15:26:5404.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Car Sharing</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.DataSourceView</Type>
-        <TimeStamp>n7QMNNeQRiC0LWr8mIc84dJhxSI=09.12.2024 20:17:2409.12.2024 20:14:45</TimeStamp>
+        <TimeStamp>n7QMNNeQRiC0LWr8mIc84dJhxSI=04.01.2025 15:25:1204.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Car Sharing</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>VKpxzkGbDM5Dzwlx7ZYyGjqDEGs=09.12.2024 20:27:4509.12.2024 20:17:24</TimeStamp>
+        <TimeStamp>SRsombQsjiyZJIVdtAMcbmY98SA=12.01.2025 23:57:5504.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>User</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>8eFRskSOyJCksVyMujn0xbyaC6I=09.12.2024 20:38:2309.12.2024 20:17:24</TimeStamp>
+        <TimeStamp>8ShzeQyaWrQiukmqOrIYLHNa3+w=12.01.2025 23:57:5504.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Time</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>NR463fdSUMQyDWeaxxVzhLgPC3U=09.12.2024 20:29:3209.12.2024 20:17:24</TimeStamp>
+        <TimeStamp>fpHTj0Zq1+lhlDe3uDTvgb1CObU=12.01.2025 23:57:5504.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Location</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>e9m6PhFAarbE122ZJVlLn+tYcKI=09.12.2024 20:30:0209.12.2024 20:17:24</TimeStamp>
+        <TimeStamp>V5z4Oxbd0MVY9d+FV2eJwwknicU=12.01.2025 23:57:5504.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Car</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>KrET5c74eXZVkx05mI3MMwOuHi0=09.12.2024 20:38:2309.12.2024 20:17:24</TimeStamp>
+        <TimeStamp>Ql6qTSKTd7nubhHS1C9pfUaN98c=12.01.2025 23:57:5504.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Date</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>iMc/3DJnpADWqdBTwTJae92o2bk=09.12.2024 20:39:4009.12.2024 20:39:40</TimeStamp>
+        <TimeStamp>FGAt9TpTPsFB+Mih1bzqEjzptBQ=12.01.2025 23:57:5504.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Was Damaged</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Cube</Type>
-        <TimeStamp>QzO2v01Oi+9wj+a8vyyDIuz6Ls4=09.12.2024 21:07:4209.12.2024 20:17:24MbyUfaiVumTdhEhHR022uaWpE8c=09.12.2024 20:59:1909.12.2024 20:17:24</TimeStamp>
+        <TimeStamp>UQmW4BdWvVB5Hcoalg6k+wNG4vo=13.01.2025 00:53:0104.01.2025 15:25:12aFHaXca9LGG3JxlZ80ei6p2crfk=13.01.2025 00:53:0104.01.2025 15:25:12</TimeStamp>
         <ID>
           <String>Car Sharing</String>
         </ID>
@@ -83,7 +83,7 @@
     </ObjectSnapshots>
     <DatabaseSnapshot>
       <Type>Microsoft.AnalysisServices.Database</Type>
-      <TimeStamp>rt96A2Wvy32sTKREU9Isgqdipxk=09.12.2024 20:06:5309.12.2024 20:06:52</TimeStamp>
+      <TimeStamp>rt96A2Wvy32sTKREU9Isgqdipxk=04.01.2025 15:25:1204.01.2025 15:25:12</TimeStamp>
       <ID>
         <String>CarSharingImplementation</String>
       </ID>
@@ -92,5 +92,5 @@
   </Snapshot>
   <AssemblyLocations />
   <ProcessingComplete>true</ProcessingComplete>
-  <LastDeployed>2025-01-02T16:26:01.676667Z</LastDeployed>
+  <LastDeployed>2025-01-12T23:54:16.676667Z</LastDeployed>
 </DeploymentSnapshot>

@@ -1,7 +1,7 @@
 ﻿USE CarSharing
 GO
 
-DECLARE @ETLDate DATETIME = '2025-01-01';
+DECLARE @ETLDate DATETIME = '2024-01-01';
 
 IF (OBJECT_ID('dbo.Staging_Users') IS NOT NULL) 
     DROP TABLE dbo.Staging_Users;

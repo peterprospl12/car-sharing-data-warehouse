@@ -1,4 +1,4 @@
-﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="1c20a8ce-1ad8-49c5-a212-342c52ca1286" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="21935c3e-4f9b-49c2-ab79-fd7c94b03c32" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Time</ID>
   <Name>Time</Name>
   <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
@@ -68,40 +68,41 @@
   </Annotations>
   <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
   <State>Unprocessed</State>
-  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="eb2f3d79-aa73-4856-827b-e5b5394f85c6">
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="3d569e46-5e93-48f9-a883-fbc0defb10cc">
     <DataSourceViewID>Car Sharing</DataSourceViewID>
   </Source>
   <Type>Time</Type>
-  <ErrorConfiguration dwd:design-time-name="b1a5334d-a64b-446d-a7cb-9a72b3968f3a">
+  <ErrorConfiguration dwd:design-time-name="e0f60741-fdd7-4fbb-aeb6-847c700572b5">
     <KeyNotFound>ReportAndStop</KeyNotFound>
     <KeyDuplicate>ReportAndStop</KeyDuplicate>
     <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
   </ErrorConfiguration>
   <CurrentStorageMode>Molap</CurrentStorageMode>
   <Attributes>
-    <Attribute dwd:design-time-name="ec877f09-766f-4d4c-8395-5ffe21485c09">
+    <Attribute dwd:design-time-name="39e0067d-af54-4598-8e7f-4c67b5cafdbe">
       <ID>Time ID</ID>
       <Name>Time ID</Name>
       <Usage>Key</Usage>
+      <EstimatedCount>1440</EstimatedCount>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="537f6b5c-4303-4ce6-8bb0-e4e74dc348e2">
+        <KeyColumn dwd:design-time-name="32284459-552a-45b5-a040-c603546d607d">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="dfcc53e0-3f4a-4c5e-8fed-9372cc2c4bb0">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="71bc27c3-0e1f-48c7-a3d0-cb3ad73d65b1">
             <TableID>dbo_Time</TableID>
             <ColumnID>TimeID</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <AttributeRelationships>
-        <AttributeRelationship dwd:design-time-name="bade57dc-58b5-46f7-8fef-69831870385c">
+        <AttributeRelationship dwd:design-time-name="46de89ae-e7b1-4192-8892-a26831a6ab63">
           <AttributeID>Time BK</AttributeID>
           <Name>Time BK</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="bf8b66cf-a1d6-4bb9-ac83-cac2a8bd1291">
+        <AttributeRelationship dwd:design-time-name="fa08d875-b490-4b2f-95a4-a2143d4d6fd9">
           <AttributeID>Hour</AttributeID>
           <Name>Hour</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="2c241276-4b5d-4cf8-b7e6-c1c01f73e6a6">
+        <AttributeRelationship dwd:design-time-name="c36f461d-c399-46ef-b818-f3845e43f0c1">
           <AttributeID>Minute</AttributeID>
           <Name>Minute</Name>
         </AttributeRelationship>
@@ -110,14 +111,14 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="65cbbe60-eaad-4ee8-9eaa-1deab9299fce">
+    <Attribute dwd:design-time-name="124f6372-a066-49e1-a61b-91ebe8f00e30">
       <ID>Time BK</ID>
       <Name>Time BK</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="0e11bedc-917d-4a28-a9c1-c39111f445a1">
+        <KeyColumn dwd:design-time-name="12618138-f8b9-4fd1-90ca-d38328876b51">
           <DataType>WChar</DataType>
           <DataSize>5</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="1d4c9900-5881-4f4d-b3a9-f4bde0862d89">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="fc3e6951-511e-402e-a114-ea69a0ff759a">
             <TableID>dbo_Time</TableID>
             <ColumnID>TimeBK</ColumnID>
           </Source>
@@ -126,14 +127,15 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="ac7e2d3c-4b80-45a5-a16b-07809abcb8cd">
+    <Attribute dwd:design-time-name="7bf7e344-108c-456c-89bb-20ee5cf2fff4">
       <ID>Hour</ID>
       <Name>Hour</Name>
       <Type>Hours</Type>
+      <EstimatedCount>24</EstimatedCount>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="16542354-9fa8-4e39-aa45-cd748be849ee">
+        <KeyColumn dwd:design-time-name="6ab911b6-88d2-4adf-8c81-0faccd2e4ea7">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="ed314e54-5770-40a8-8943-4597dda3b45c">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="cf6217c1-c681-448d-944b-cc62c72f3462">
             <TableID>dbo_Time</TableID>
             <ColumnID>Hour</ColumnID>
           </Source>
@@ -142,14 +144,14 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="217ac0f6-807e-4681-a79b-fd9d75ed3a1a">
+    <Attribute dwd:design-time-name="38e070b4-ab6a-441f-8a1f-961d32ab5ce7">
       <ID>Minute</ID>
       <Name>Minute</Name>
       <Type>Minutes</Type>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="1b08815a-fe60-43de-bcea-12cdffa2888f">
+        <KeyColumn dwd:design-time-name="3017d044-5a55-426d-9020-770eecae804b">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="a9bb0b56-9ae0-40c4-aae2-38cb55e611ba">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="c9bae920-bc47-4412-b0df-4caca590f212">
             <TableID>dbo_Time</TableID>
             <ColumnID>Minute</ColumnID>
           </Source>
@@ -160,16 +162,16 @@
     </Attribute>
   </Attributes>
   <Hierarchies>
-    <Hierarchy dwd:design-time-name="bc9670b7-e389-413e-b81b-e60eb60dad0d">
+    <Hierarchy dwd:design-time-name="29782fc6-26bf-46af-a6aa-5e09e832d529">
       <ID>Hierarchy</ID>
       <Name>TimeHierarchy</Name>
       <Levels>
-        <Level dwd:design-time-name="e8421a16-5896-43db-96c6-d8655cb27898">
+        <Level dwd:design-time-name="7eee2c7b-e1ee-4a40-bf56-c5e562c471a0">
           <ID>Hour</ID>
           <Name>Hour</Name>
           <SourceAttributeID>Hour</SourceAttributeID>
         </Level>
-        <Level dwd:design-time-name="d54dfe2b-bfd3-44ab-8719-a02607aa21ea">
+        <Level dwd:design-time-name="7b62fcaa-edf4-46bf-b0c4-b3e5dcb0349b">
           <ID>Minute</ID>
           <Name>Minute</Name>
           <SourceAttributeID>Minute</SourceAttributeID>

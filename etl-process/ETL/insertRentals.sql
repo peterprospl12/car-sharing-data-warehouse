@@ -19,11 +19,12 @@ CREATE TABLE dbo.DamageTemp (
 );
 GO
 
-DECLARE @ETLDate DATETIME = '2025-01-01';
+DECLARE @ETLDate DATETIME = '2024-01-01';
 
 BULK INSERT dbo.DamageTemp
 --FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
-FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
+FROM 'C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\damages.csv'
+--FROM 'C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\DataSource\t2\damages.csv'
 WITH (
     FIRSTROW = 2,
     FIELDTERMINATOR = ',',
@@ -115,7 +116,7 @@ INSERT INTO Rental (
     DriverAge, 
     YearsOfDrivingExperience
 )
-SELECT 
+SELECT
     d.DateID AS StartDateID,
     t.TimeID AS StartTimeID,
     u.UserID AS UserID,

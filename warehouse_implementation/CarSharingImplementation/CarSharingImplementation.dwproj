@@ -64,7 +64,7 @@
           <ConfigurationSetting>
             <Id>Car Sharing</Id>
             <Name>Car Sharing</Name>
-            <Value xsi:type="xsd:string">Provider=SQLNCLI11.1;Data Source=DESKTOP-O4UBSJB;Integrated Security=SSPI;Initial Catalog=CarSharing</Value>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI11.1;Data Source=desktop-nof30j9;Integrated Security=SSPI;Initial Catalog=CarSharing</Value>
           </ConfigurationSetting>
         </ConnectionMappings>
         <ConnectionSecurityMappings>

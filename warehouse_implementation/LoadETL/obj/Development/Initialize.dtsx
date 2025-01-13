@@ -11,8 +11,8 @@
   DTS:LocaleID="1045"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{1D10ADD8-B6F7-4E6E-A681-A38CECB3F488}">
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{0C3186F1-037B-4ABE-8B1F-4AC23563384F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,7 +23,7 @@
       DTS:ObjectName="insertDates.sql">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertDates.sql" />
+          DTS:ConnectionString="C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertDates.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -33,7 +33,7 @@
       DTS:ObjectName="insertLocations.sql">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertLocations.sql" />
+          DTS:ConnectionString="C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertLocations.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -43,7 +43,7 @@
       DTS:ObjectName="insertTimes.sql">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertTimes.sql" />
+          DTS:ConnectionString="C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertTimes.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -55,7 +55,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=localhost;Initial Catalog=CarSharing;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{10B0FD3C-7873-456B-B001-37941AD3351F}localhost.CarSharing;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=CarSharing;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package1-{10B0FD3C-7873-456B-B001-37941AD3351F}localhost.CarSharing;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -147,17 +147,17 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="162.4,41.6"
+          Size="162,42"
           Id="Package\Insert Dates"
           TopLeft="3.57142857903129,30.5882352673059" />
         <NodeLayout
-          Size="172,41.6"
-          Id="Package\Insert Times"
-          TopLeft="2.8421709430404E-14,116.235294015762" />
-        <NodeLayout
-          Size="153.6,41.6"
+          Size="154,42"
           Id="Package\Insert Locations"
           TopLeft="9.22857137839405,211.05882334441" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Insert Times"
+          TopLeft="2.8421709430404E-14,116.235294015762" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="85.3857142895157,72.1882352673059">

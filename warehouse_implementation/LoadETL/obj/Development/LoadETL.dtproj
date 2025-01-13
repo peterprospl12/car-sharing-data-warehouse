@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-O4UBSJB</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAr33IXqb10k2qXWZNiw3HcwAAAAACAAAAAAAQZgAAAAEAACAAAACSKHgrO0CLwwNNo6A1yQ9AD2ZAAe42CVEMYnI50rWaTAAAAAAOgAAAAAIAACAAAABcUOpW4UQcdPeI0EYINV77AfqfVxnJIv/4MeJn51VHw5AAAACzKZ4a2JR3qLD5CkOsAcssIkIMNulDLToAX1bscruxWtYdhhFSzYYZ4xGZnkvaTRNPX88QI7eZNxJR2STPAwQoZW2NO/Xl4uabXAAH33FmorE0Ismd+jIXHy2o14RpLxzKth4dUaYkVfGpZmIsBB24EJVS7GFShrNLZ+s068Z79+UpXh1FXmNOJaCi2a/7X9FAAAAAfvdwToMzrTK0q6hamb8Zpd+HJ5VWeRFDH8s6gX/Ea003GCkxMOKz90iwSfr1tQEerRHzyO6YOCKZ4QJmMgeDXQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxIFjLazuuk6btnfAYpcN6wAAAAACAAAAAAAQZgAAAAEAACAAAAD0KORQMO+KhiUTdGGRW+JAeZ2nGiASypale1b2tWa65QAAAAAOgAAAAAIAACAAAAB7F/4KUEz7V3xlGcOQI8h5YfvTNV7KUe1Csm9Kt/qXa5AAAAA0OG5ZAzP82ND0YnzaSTSMswfP858t579BHGv1cphh4jkrj+e2Pg3WBulcg4wgmEGHA4LBvTON0gH4jlQLPqRUEhtp561C/r97HXbNZpzJ/g370zRleYSzZ4Rrgqo8Ww2SvLfu0+yecXgicVDywfdjqtAlptMAvQsG0P2i6NeeZZ+GW0ED5EqKmOjD0K5ZGLJAAAAAPnazXX5T8mTYMhPn2zOD2f2A9Ysoxou/dR8+ax23Ttq2r1LpwjQsiCx1SCx9nZIxJALQYW9POb2YKMMpEhdO/w==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -43,10 +43,10 @@
                 <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">3</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1D10ADD8-B6F7-4E6E-A681-A38CECB3F488}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{0C3186F1-037B-4ABE-8B1F-4AC23563384F}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -79,7 +79,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertDates.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertDates.sql</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -109,7 +109,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertLocations.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertLocations.sql</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -139,7 +139,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertTimes.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertTimes.sql</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -169,7 +169,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=localhost;Initial Catalog=CarSharing;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{10B0FD3C-7873-456B-B001-37941AD3351F}localhost.CarSharing;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=localhost;Initial Catalog=CarSharing;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package1-{10B0FD3C-7873-456B-B001-37941AD3351F}localhost.CarSharing;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -299,10 +299,10 @@
                 <SSIS:Property SSIS:Name="Name">Initialize</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">11</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">12</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{680FB501-C9AB-4F1F-8BD0-E9E0D9E61228}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{288F533F-389D-46CC-AD31-51B9CBF14298}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -335,7 +335,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertCars.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertCars.sql</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -365,7 +365,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertRentals.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertRentals.sql</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -395,7 +395,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertUsers.sql</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertUsers.sql</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>

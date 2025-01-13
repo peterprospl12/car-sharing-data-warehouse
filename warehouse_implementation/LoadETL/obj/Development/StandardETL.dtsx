@@ -11,8 +11,8 @@
   DTS:LocaleID="1045"
   DTS:ObjectName="Initialize"
   DTS:PackageType="5"
-  DTS:VersionBuild="11"
-  DTS:VersionGUID="{680FB501-C9AB-4F1F-8BD0-E9E0D9E61228}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{288F533F-389D-46CC-AD31-51B9CBF14298}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,7 +23,7 @@
       DTS:ObjectName="insertCars.sql">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertCars.sql" />
+          DTS:ConnectionString="C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertCars.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -33,7 +33,7 @@
       DTS:ObjectName="insertRentals.sql">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertRentals.sql" />
+          DTS:ConnectionString="C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertRentals.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -43,7 +43,7 @@
       DTS:ObjectName="insertUsers.sql">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Users\Tomasz\Desktop\car-sharing-data-warehouse\etl-process\ETL\insertUsers.sql" />
+          DTS:ConnectionString="C:\Users\Piotr\PycharmProjects\car-sharing-data-warehouse\etl-process\ETL\insertUsers.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -183,19 +183,19 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="236,41.6"
+          Size="236,42"
           Id="Package\Analysis Services Processing Task"
           TopLeft="174.285714656723,269.176470352292" />
         <NodeLayout
-          Size="130.4,41.6"
+          Size="130,42"
           Id="Package\Insert Cars"
           TopLeft="111.428571665774,68.8235293514383" />
         <NodeLayout
-          Size="167.2,41.6"
+          Size="167,42"
           Id="Package\Insert Rental Facts"
           TopLeft="210.714286162841,168.999999851865" />
         <NodeLayout
-          Size="162.4,41.6"
+          Size="162,42"
           Id="Package\Insert Users"
           TopLeft="325.714286407646,70.3529411148035" />
         <EdgeLayout
